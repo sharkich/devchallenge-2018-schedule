@@ -1,0 +1,50 @@
+
+$width: 2000px;
+$height: 200px;
+
+$axis-bottom: 80px;
+
+.app-timechart {
+  width: $width + 48px;
+  height: $height;
+  margin: 0 auto;
+
+  .hours {
+    display: flex;
+
+    .hour {
+      width: $width / 24;
+      height: $height;
+      position: relative;
+
+      &__axis {
+        position: absolute;
+        bottom: $axis-bottom;
+        background: #000;
+
+        &--hour {
+          width: 2px;
+          height: 60px;
+          left: 0;
+        }
+        &--half {
+          width: 1px;
+          height: 50px;
+          left: 50%;
+        }
+
+        &--quarter-pre {
+          width: 1px;
+          height: 30px;
+          left: 25%;
+        }
+        &--quarter-post {
+          width: 1px;
+          height: 30px;
+          left: 75%;
+        }
+      }
+    }
+  }
+
+}

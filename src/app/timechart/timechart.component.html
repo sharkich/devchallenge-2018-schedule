@@ -1,3 +1,15 @@
-<p>
-  timechart works!
-</p>
+<div class="app-timechart">
+
+  <div class="hours">
+    <div
+      *ngFor="let hour of hours; index as i;"
+      class="hour">
+      <div class="hour__title">{{hour}}:00</div>
+      <div class="hour__axis hour__axis--hour"></div>
+      <div class="hour__axis hour__axis--half"></div>
+      <div class="hour__axis hour__axis--quarter-pre"></div>
+      <div class="hour__axis hour__axis--quarter-post"></div>
+    </div>
+  </div>
+
+</div>
