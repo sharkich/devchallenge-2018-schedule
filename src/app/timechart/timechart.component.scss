@@ -6,32 +6,6 @@ $hour-width: round($width / 24);
 $half-width: round($hour-width / 2);
 $quarter-width: round($hour-width / 4);
 
-$left-0: 0px;
-$left-1: $hour-width;
-$left-2: $hour-width * 2;
-$left-3: $hour-width * 3;
-$left-4: $hour-width * 4;
-$left-5: $hour-width * 5;
-$left-6: $hour-width * 6;
-$left-7: $hour-width * 7;
-$left-8: $hour-width * 8;
-$left-9: $hour-width * 9;
-$left-10: $hour-width * 10;
-$left-11: $hour-width * 11;
-$left-12: $hour-width * 12;
-$left-13: $hour-width * 13;
-$left-14: $hour-width * 14;
-$left-15: $hour-width * 15;
-$left-16: $hour-width * 16;
-$left-17: $hour-width * 17;
-$left-18: $hour-width * 18;
-$left-19: $hour-width * 19;
-$left-20: $hour-width * 20;
-$left-21: $hour-width * 21;
-$left-22: $hour-width * 22;
-$left-23: $hour-width * 23;
-$left-24: $hour-width * 24;
-
 $axis-bottom: 80px;
 $axis--height-hour: 60px;
 $axis--height-half: 55px;
@@ -119,34 +93,26 @@ $time-range-height: 30px;
         height: $time-range-height;
         bottom: $axis-bottom;
       }
+
+      @for $i from 0 through 96 {
+        &--width-#{$i} {
+          width: $quarter-width * $i;
+        }
+      }
+
     }
 
   }
 
-  .left-index-0 {left: $left-0;}
-  .left-index-1 {left: $left-1;}
-  .left-index-2 {left: $left-2;}
-  .left-index-3 {left: $left-3;}
-  .left-index-4 {left: $left-4;}
-  .left-index-5 {left: $left-5;}
-  .left-index-6 {left: $left-6;}
-  .left-index-7 {left: $left-7;}
-  .left-index-8 {left: $left-8;}
-  .left-index-9 {left: $left-9;}
-  .left-index-10 {left: $left-10;}
-  .left-index-11 {left: $left-11;}
-  .left-index-12 {left: $left-12;}
-  .left-index-13 {left: $left-13;}
-  .left-index-14 {left: $left-14;}
-  .left-index-15 {left: $left-15;}
-  .left-index-16 {left: $left-16;}
-  .left-index-17 {left: $left-17;}
-  .left-index-18 {left: $left-18;}
-  .left-index-19 {left: $left-19;}
-  .left-index-20 {left: $left-20;}
-  .left-index-21 {left: $left-21;}
-  .left-index-22 {left: $left-22;}
-  .left-index-23 {left: $left-23;}
-  .left-index-24 {left: $left-24;}
+  @for $i from 0 through 24 {
+    .left-index-#{$i} {
+      left: $hour-width * $i;
+    }
+  }
+
+  .margin-minutes-0  {margin-left: $quarter-width * 0;}
+  .margin-minutes-15 {margin-left: $quarter-width * 1;}
+  .margin-minutes-30 {margin-left: $quarter-width * 2;}
+  .margin-minutes-45 {margin-left: $quarter-width * 3;}
 
 }

@@ -13,7 +13,9 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     this.currentSchedule.push(new TimeRangeModel({
       hourStart: 9,
+      minutesStart: 15,
       hourEnd: 15,
+      minutesEnd: 45,
       title: 'Sleep'
     }));
   }

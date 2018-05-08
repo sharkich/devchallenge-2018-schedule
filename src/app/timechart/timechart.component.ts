@@ -10,7 +10,7 @@ export class TimechartComponent implements OnInit {
 
   @Input() timeRanges: TimeRangeModel[];
 
-  public hours = [5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 1, 2, 3, 4];
+  public hours = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23];
 
   constructor() { }
 
@@ -21,8 +21,14 @@ export class TimechartComponent implements OnInit {
     return [
       'time-range',
       `left-index-${this.hours.indexOf(timeRange.hourStart)}`,
-      `time-range--end-${this.hours.indexOf(timeRange.hourStart)}`
+      `margin-minutes-${timeRange.minutesStart}`,
+      `time-range--width-${this.getRangeLength(timeRange)}`
     ].join(' ');
+  }
+
+  private getRangeLength(timeRange: TimeRangeModel): number {
+    console.log(timeRange, (timeRange.hourEnd * 4 + timeRange.minutesEnd) - (timeRange.hourStart * 4 + timeRange.minutesStart));
+    return (timeRange.hourEnd * 4 + timeRange.minutesEnd / 15) - (timeRange.hourStart * 4 + timeRange.minutesStart / 15);
   }
 
 }
