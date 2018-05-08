@@ -1,0 +1,5 @@
+Task: https://devchallenge.it/wp-content/uploads/sites/2/2018/05/r1_frontend_js_pro.pdf
+0. Story https://codeburst.io/optimizing-office-work-schedule-8c7179434b9a
+1. One https://cdn-images-1.medium.com/max/2000/1*UWR32KftmKG3M4mWLny90w.png
+2. Diff https://cdn-images-1.medium.com/max/2000/1*hzCGKCZXQB18sERtdtVd_A.png
+3. Result https://cdn-images-1.medium.com/max/2000/1*jlcxMcVtiUawnjgwqBBPFg.png
