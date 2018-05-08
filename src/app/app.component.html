@@ -1,11 +1,14 @@
 <!--The content below is only a placeholder and can be replaced.-->
 <div class="app-root">
-  <h1>
-    Welcome to {{ title }}!
-  </h1>
-  <app-timechart></app-timechart>
+
+  <app-timechart
+    [timeRanges]="currentSchedule"
+  ></app-timechart>
+
+  <hr>
 
   <div>
     <img src="/assets/1_UWR32KftmKG3M4mWLny90w.png">
   </div>
+
 </div>
