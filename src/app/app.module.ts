@@ -1,8 +1,10 @@
-import {BrowserModule} from "@angular/platform-browser";
-import {NgModule} from "@angular/core";
+import {BrowserModule} from '@angular/platform-browser';
+import {NgModule} from '@angular/core';
 
-import {AppComponent} from "./app.component";
-import {TimechartComponent} from "./timechart/timechart.component";
+import {AppComponent} from './app.component';
+import {TimechartComponent} from './timechart/timechart.component';
+import {TimeRangeService} from './time-range.service';
+import {HttpModule} from '@angular/http';
 
 @NgModule({
   declarations: [
@@ -10,9 +12,12 @@ import {TimechartComponent} from "./timechart/timechart.component";
     TimechartComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    HttpModule
   ],
-  providers: [],
+  providers: [
+    TimeRangeService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

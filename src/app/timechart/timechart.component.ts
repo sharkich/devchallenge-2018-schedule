@@ -27,7 +27,6 @@ export class TimechartComponent implements OnInit {
   }
 
   private getRangeLength(timeRange: TimeRangeModel): number {
-    console.log(timeRange, (timeRange.hourEnd * 4 + timeRange.minutesEnd) - (timeRange.hourStart * 4 + timeRange.minutesStart));
     return (timeRange.hourEnd * 4 + timeRange.minutesEnd / 15) - (timeRange.hourStart * 4 + timeRange.minutesStart / 15);
   }
 

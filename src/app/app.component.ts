@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {TimeRangeModel} from './time-range.model';
+import {TimeRangeService} from './time-range.service';
 
 @Component({
   selector: 'app-root',
@@ -10,14 +11,15 @@ export class AppComponent implements OnInit {
 
   public currentSchedule: TimeRangeModel[] = [];
 
+  constructor(private timeRangeService: TimeRangeService) {
+  }
+
   ngOnInit() {
-    this.currentSchedule.push(new TimeRangeModel({
-      hourStart: 9,
-      minutesStart: 15,
-      hourEnd: 15,
-      minutesEnd: 45,
-      title: 'Sleep'
-    }));
+    this.timeRangeService.init()
+      .then((timeRanges: TimeRangeModel[]) => {
+        this.currentSchedule = timeRanges;
+        console.log(timeRanges);
+      });
   }
 
 }
