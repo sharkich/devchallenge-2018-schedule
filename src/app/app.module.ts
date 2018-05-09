@@ -5,11 +5,13 @@ import {AppComponent} from './app.component';
 import {TimechartComponent} from './timechart/timechart.component';
 import {TimeRangeService} from './time-range.service';
 import {HttpModule} from '@angular/http';
+import {SvgTimeChartComponent} from './svg-time-chart/svg-time-chart.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    TimechartComponent
+    TimechartComponent,
+    SvgTimeChartComponent
   ],
   imports: [
     BrowserModule,
@@ -20,4 +22,5 @@ import {HttpModule} from '@angular/http';
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}

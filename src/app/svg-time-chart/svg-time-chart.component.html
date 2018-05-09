@@ -1,0 +1,56 @@
+<svg class="app-svg-time-chart">
+  <g class="axises">
+    <g
+      *ngFor="let hour of hours; index as i;"
+      class="hour">
+      <text
+        [attr.x]="svgMargin + hour * svgHourWidth"
+        y="170"
+        text-anchor='middle'
+        class="hour__title">
+        {{hour}}:00
+      </text>
+      <line
+        [attr.x1]="svgMargin + hour * svgHourWidth"
+        [attr.x2]="svgMargin + hour * svgHourWidth"
+        y1="180"
+        y2="250"
+        class="axis axis--hour"/>
+      <line
+        [attr.x1]="svgMargin + hour * svgHourWidth + svgHalfWidth"
+        [attr.x2]="svgMargin + hour * svgHourWidth + svgHalfWidth"
+        y1="180"
+        y2="250"
+        class="axis axis--half"/>
+      <line
+        [attr.x1]="svgMargin + hour * svgHourWidth + svgQuarterWidth"
+        [attr.x2]="svgMargin + hour * svgHourWidth + svgQuarterWidth"
+        y1="200"
+        y2="250"
+        class="axis axis--quarter"/>
+      <line
+        [attr.x1]="svgMargin + hour * svgHourWidth + svgHalfWidth + svgQuarterWidth"
+        [attr.x2]="svgMargin + hour * svgHourWidth + svgHalfWidth + svgQuarterWidth"
+        y1="200"
+        y2="250"
+        class="axis axis--quarter"/>
+    </g>
+    <g class="hour">
+      <text
+        [attr.x]="svgMargin + 24 * svgHourWidth"
+        y="170"
+        text-anchor='middle'
+        class="hour__title">
+        24:00
+      </text>
+      <line
+        [attr.x1]="svgMargin + 24 * svgHourWidth"
+        [attr.x2]="svgMargin + 24 * svgHourWidth"
+        y1="180"
+        y2="250"
+        class="axis axis--hour"/>
+    </g>
+
+  </g>
+  Sorry, your browser does not support inline SVG.
+</svg>

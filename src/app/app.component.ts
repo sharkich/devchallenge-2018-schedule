@@ -18,7 +18,7 @@ export class AppComponent implements OnInit {
     this.timeRangeService.init()
       .then((timeRanges: TimeRangeModel[]) => {
         this.currentSchedule = timeRanges;
-        console.log(timeRanges);
+        // console.log(timeRanges);
       });
   }
 

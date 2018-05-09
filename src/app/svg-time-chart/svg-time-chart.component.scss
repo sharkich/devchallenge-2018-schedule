@@ -1,0 +1,46 @@
+
+$width: 2016px;
+$height: 400px;
+
+$hour-width: round($width / 24);
+$half-width: round($hour-width / 2);
+$quarter-width: round($hour-width / 4);
+
+$axis-bottom: 80px;
+$axis--height-hour: 60px;
+$axis--height-half: 55px;
+$axis--height-quarter: 40px;
+
+$time-range-height: 30px;
+
+.app-svg-time-chart {
+  font-family: Arial, sans-serif;
+  font-size: 10pt;
+  color: #000;
+
+  position: relative;
+  width: $width + 48px;
+  height: $height;
+  margin: 0 auto;
+  border: 1px solid #eee;
+  padding: 20px 40px;
+
+  .axises {
+    .hour {
+      &__title {
+        color: #000;
+        font-size: 9pt;
+      }
+      .axis {
+        stroke: rgba(0, 0,0, 1);
+      }
+      .axis--hour {
+        stroke-width: 2px;
+      }
+      .axis--half, .axis--quarter {
+        stroke-width: 1px;
+      }
+    }
+
+  }
+}

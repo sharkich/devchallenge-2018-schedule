@@ -1,5 +1,4 @@
 export const TIME_RANGE_KIND = {
-  sleep: 'sleep',
   red: 'red',
   yellow: 'yellow',
   green: 'green',
