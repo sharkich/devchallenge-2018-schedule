@@ -12,6 +12,73 @@
     [attr.height]="svgHeightFull"
     style="fill: white;" />
 
+  <g class="ranges">
+
+    <g class="colours">
+
+      <g
+        *ngFor="let timeRange of timeRangesColours; index as i;"
+        class="color-group">
+          <rect
+            class="color"
+            [attr.x]="rangeX(timeRange)"
+            [attr.y]="250 - rangeHeight(timeRange)"
+            [attr.width]="rangeWidth(timeRange)"
+            [attr.height]="rangeHeight(timeRange)"
+            [attr.fill]="rangeColor(timeRange)"/>
+          <text
+            class="color-title"
+            [attr.x]="rangeTitleX(timeRange)"
+            [attr.y]="290"
+            text-anchor="end"
+            [attr.transform]="'rotate(-90 ' + rangeTitleX(timeRange) + ',290)'"
+            [attr.fill]="rangeColor(timeRange, 1)"
+            style="font-size: 9pt; font-weight: bold;">
+            {{timeRange.title}}
+          </text>
+      </g>
+
+      <g
+        *ngFor="let timeRange of timeRangesTitles; index as i;"
+        class="title-group">
+          <rect
+            class="title"
+            [attr.x]="rangeX(timeRange)"
+            [attr.y]="250"
+            [attr.width]="rangeWidth(timeRange)"
+            [attr.height]="30"
+            [attr.fill]="rangeColor(timeRange)"/>
+          <text
+            class="title-text"
+            [attr.x]="rangeTitleX(timeRange) - 4"
+            [attr.y]="270"
+            text-anchor="middle"
+            [attr.fill]="'#000'"
+            style="font-size: 9pt; font-weight: bold;">
+            {{timeRange.title}}
+          </text>
+          <line
+            class="title-left-line"
+            [attr.x1]="rangeX(timeRange)"
+            [attr.x2]="rangeX(timeRange)"
+            y1="250"
+            y2="295"
+            stroke="rgba(0, 0,0, 1)"
+            stroke-width="2px"/>
+          <line
+            class="title-right-line"
+            [attr.x1]="rangeX(timeRange) + rangeWidth(timeRange)"
+            [attr.x2]="rangeX(timeRange) + rangeWidth(timeRange)"
+            y1="250"
+            y2="295"
+            stroke="rgba(0, 0,0, 1)"
+            stroke-width="2px"/>
+      </g>
+
+    </g>
+
+  </g>
+
   <g class="axises">
 
     <g
@@ -68,35 +135,6 @@
         y2="250"
         stroke="rgba(0, 0,0, 1)"
         stroke-width="2px"/>
-    </g>
-
-  </g>
-
-  <g class="ranges">
-
-    <g class="colours">
-
-      <g
-        *ngFor="let timeRange of timeRanges; index as i;"
-        class="color">
-          <rect
-            class="color"
-            [attr.x]="rangeX(timeRange)"
-            [attr.y]="250 - rangeHeight(timeRange)"
-            [attr.width]="rangeWidth(timeRange)"
-            [attr.height]="rangeHeight(timeRange)"
-            [attr.fill]="rangeColor(timeRange)"/>
-          <text
-            [attr.x]="rangeTitleX(timeRange)"
-            [attr.y]="300"
-            text-anchor="end"
-            [attr.transform]="'rotate(-90 ' + rangeTitleX(timeRange) + ',300)'"
-            [attr.fill]="rangeColor(timeRange, 1)"
-            style="font-size: 9pt; font-weight: bold;">
-            {{timeRange.title}}
-          </text>
-      </g>
-
     </g>
 
   </g>

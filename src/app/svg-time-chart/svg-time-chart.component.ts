@@ -54,11 +54,25 @@ export class SvgTimeChartComponent implements OnInit {
   public isDownload = false;
   public downloadLink: string;
 
+  public timeRangesColours: TimeRangeModel[];
+  public timeRangesTitles: TimeRangeModel[];
+
   constructor() {
   }
 
   ngOnInit() {
-    console.log(this.timeRanges);
+    this.timeRangesColours = this.timeRanges
+      .filter((timeRange) => [
+        TIME_RANGE_KIND.work,
+        TIME_RANGE_KIND.sleep,
+        TIME_RANGE_KIND.red,
+        TIME_RANGE_KIND.green,
+        TIME_RANGE_KIND.yellow,
+        TIME_RANGE_KIND.blue,
+      ].indexOf(timeRange.kind) !== -1);
+
+    this.timeRangesTitles = this.timeRanges
+      .filter((timeRange) => TIME_RANGE_KIND.title === timeRange.kind);
 
     // For downloading
     this.png.nativeElement.onload = () => {
@@ -131,15 +145,28 @@ export class SvgTimeChartComponent implements OnInit {
       case TIME_RANGE_KIND.work:
         return `rgba(0, 200, 0, ${opacity})`;
       case TIME_RANGE_KIND.yellow:
+        if (opacity === 1) {
+          return `rgba(240, 180, 30, 1)`;
+        }
         return `rgba(255, 230, 50, ${opacity})`;
       case TIME_RANGE_KIND.title:
+        if (opacity === 1) {
+          return `rgba(0, 0, 0, 1)`;
+        }
+        if (timeRange.background === 'green') {
+          return `rgba(230, 250, 230, ${opacity})`;
+        }
+        if (timeRange.background === 'transparent') {
+          return `rgba(255, 255, 255, ${opacity})`;
+        }
+        return `rgba(230, 230, 230, ${opacity})`;
       case TIME_RANGE_KIND.background:
         if (opacity === 1) {
           return `rgba(0, 0, 0, 1)`;
         }
         return `rgba(255, 255, 255, 0)`;
       default:
-        return `rgba(60, 160, 200, ${opacity})`;
+        return `rgba(230, 230, 230, ${opacity})`;
     }
   }
 

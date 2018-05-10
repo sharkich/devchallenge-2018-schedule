@@ -23,7 +23,7 @@
   {
     "start": "9:00",
     "end": "10:00",
-    "title": "Public Transport",
+    "title": "",
     "kind": "red",
     "height": 0
   },
@@ -108,7 +108,7 @@
   {
     "start": "19:00",
     "end": "20:00",
-    "title": "Public Transport",
+    "title": "",
     "kind": "red",
     "height": 0
   },
@@ -126,5 +126,35 @@
     "title": "Personal time",
     "kind": "yellow",
     "height": 1
+  },
+
+  {
+    "start": "10:00",
+    "end": "19:00",
+    "title": "Activity at work",
+    "kind": "title",
+    "background": "green"
+  },
+  {
+    "start": "20:00",
+    "end": "23:30",
+    "title": "Activity at home",
+    "kind": "title",
+    "background": "green"
+  },
+
+  {
+    "start": "9:00",
+    "end": "10:00",
+    "title": "Transport",
+    "kind": "title",
+    "background": "transparent"
+  },
+  {
+    "start": "19:00",
+    "end": "20:00",
+    "title": "Transport",
+    "kind": "title",
+    "background": "transparent"
   }
 ]
