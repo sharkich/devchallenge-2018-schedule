@@ -17,7 +17,6 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     this.timeRangeService.init()
       .then((timeRanges: TimeRangeModel[]) => {
-        // this.currentSchedule = [].concat(timeRanges[1], timeRanges[2]);
         this.currentSchedule = timeRanges;
       });
   }

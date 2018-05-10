@@ -8,7 +8,7 @@ export class TimeRangeService {
   constructor(private http: Http) { }
 
   public init(): Promise<TimeRangeModel[]> {
-    return this.http.get('/assets/schedule-01.json')
+    return this.http.get('/assets/schedule-original-fix.json')
       .toPromise()
       .then((res) => {
         const timeRanges: TimeRangeModel[] = res.json().map((obj) => new TimeRangeModel(obj));
