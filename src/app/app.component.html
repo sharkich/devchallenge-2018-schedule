@@ -2,6 +2,7 @@
 <div class="app-root">
 
   <app-svg-time-chart
+    *ngIf="currentSchedule"
     [timeRanges]="currentSchedule"
   ></app-svg-time-chart>
 

@@ -9,7 +9,7 @@ import {TimeRangeService} from './time-range.service';
 })
 export class AppComponent implements OnInit {
 
-  public currentSchedule: TimeRangeModel[] = [];
+  public currentSchedule: TimeRangeModel[];
 
   constructor(private timeRangeService: TimeRangeService) {
   }
@@ -17,8 +17,8 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     this.timeRangeService.init()
       .then((timeRanges: TimeRangeModel[]) => {
+        // this.currentSchedule = [].concat(timeRanges[1], timeRanges[2]);
         this.currentSchedule = timeRanges;
-        // console.log(timeRanges);
       });
   }
 

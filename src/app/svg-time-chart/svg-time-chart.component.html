@@ -5,16 +5,19 @@
   class="app-svg-time-chart">
 
   <rect
+    class="background"
     x="0"
     y="0"
     [attr.width]="svgWidthFull"
     [attr.height]="svgHeightFull"
     style="fill: white;" />
 
-  <g>
+  <g class="axises">
+
     <g
       *ngFor="let hour of hours; index as i;"
       class="hour">
+
       <text
         [attr.x]="svgMargin + hour * svgHourWidth"
         y="170"
@@ -28,30 +31,28 @@
         y1="180"
         y2="250"
         stroke="rgba(0, 0,0, 1)"
-        stroke-width="2px"
-        class="axis--hour"/>
+        stroke-width="2px"/>
       <line
         [attr.x1]="svgMargin + hour * svgHourWidth + svgHalfWidth"
         [attr.x2]="svgMargin + hour * svgHourWidth + svgHalfWidth"
         y1="180"
         y2="250"
-        stroke="rgba(0, 0,0, 1)"
-        class="axis--half"/>
+        stroke="rgba(0, 0,0, 1)"/>
       <line
         [attr.x1]="svgMargin + hour * svgHourWidth + svgQuarterWidth"
         [attr.x2]="svgMargin + hour * svgHourWidth + svgQuarterWidth"
         y1="200"
         y2="250"
-        stroke="rgba(0, 0,0, 1)"
-        class="axis--quarter"/>
+        stroke="rgba(0, 0,0, 1)"/>
       <line
         [attr.x1]="svgMargin + hour * svgHourWidth + svgHalfWidth + svgQuarterWidth"
         [attr.x2]="svgMargin + hour * svgHourWidth + svgHalfWidth + svgQuarterWidth"
         y1="200"
         y2="250"
-        stroke="rgba(0, 0,0, 1)"
-        class="axis--quarter"/>
+        stroke="rgba(0, 0,0, 1)"/>
+
     </g>
+
     <g class="hour">
       <text
         [attr.x]="svgMargin + 24 * svgHourWidth"
@@ -67,6 +68,35 @@
         y2="250"
         stroke="rgba(0, 0,0, 1)"
         stroke-width="2px"/>
+    </g>
+
+  </g>
+
+  <g class="ranges">
+
+    <g class="colours">
+
+      <g
+        *ngFor="let timeRange of timeRanges; index as i;"
+        class="color">
+          <rect
+            class="color"
+            [attr.x]="rangeX(timeRange)"
+            [attr.y]="250 - rangeHeight(timeRange)"
+            [attr.width]="rangeWidth(timeRange)"
+            [attr.height]="rangeHeight(timeRange)"
+            [attr.fill]="rangeColor(timeRange)"/>
+          <text
+            [attr.x]="rangeTitleX(timeRange)"
+            [attr.y]="270"
+            text-anchor="end"
+            [attr.transform]="'rotate(-90 ' + rangeTitleX(timeRange) + ',270)'"
+            [attr.fill]="rangeColor(timeRange, 1)"
+            style="font-size: 9pt; font-weight: bold;">
+            {{timeRange.title}}
+          </text>
+      </g>
+
     </g>
 
   </g>
