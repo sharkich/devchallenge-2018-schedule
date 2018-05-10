@@ -34,14 +34,16 @@ export class SvgTimeChartComponent implements OnInit {
   @ViewChild('canvas') canvas;
   @ViewChild('png') png;
 
-  public svgMargin = 20;
+  public svgMargin = 40;
 
   public svgWidth = 2016;
+  public svgWidthFull = this.svgWidth + this.svgMargin * 2;
   public svgHourWidth = Math.round(this.svgWidth / 24);
   public svgHalfWidth = Math.round(this.svgHourWidth / 2);
   public svgQuarterWidth = Math.round(this.svgHourWidth / 4);
 
   public svgHeight = 400;
+  public svgHeightFull = this.svgHeight + this.svgMargin * 2;
 
   public hours = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23];
 
@@ -57,7 +59,9 @@ export class SvgTimeChartComponent implements OnInit {
       // add img
       this.canvas.nativeElement
         .getContext('2d')
-        .drawImage(this.png.nativeElement, 0, 0, this.svgWidth, this.svgHeight, 0, 0, this.svgWidth, this.svgHeight);
+        .drawImage(this.png.nativeElement,
+          0, 0, this.svgWidthFull, this.svgHeightFull,
+          0, 0, this.svgWidthFull, this.svgHeightFull);
 
       // download
       const link = document.createElement('a');
@@ -68,6 +72,8 @@ export class SvgTimeChartComponent implements OnInit {
       document.body.removeChild(link);
 
       this.png.nativeElement.src = null;
+
+      // this.isDownload = true;
     };
   }
 

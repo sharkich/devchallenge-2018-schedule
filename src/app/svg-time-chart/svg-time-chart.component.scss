@@ -22,25 +22,6 @@ $time-range-height: 30px;
   width: $width + 48px;
   height: $height;
   margin: 0 auto;
-  border: 1px solid #eee;
+  border: 1px solid #666;
   padding: 20px 40px;
-
-  .axises {
-    .hour {
-      &__title {
-        color: #000;
-        font-size: 9pt;
-      }
-      .axis {
-        stroke: rgba(0, 0,0, 1);
-      }
-      .axis--hour {
-        stroke-width: 2px;
-      }
-      .axis--half, .axis--quarter {
-        stroke-width: 1px;
-      }
-    }
-
-  }
 }
