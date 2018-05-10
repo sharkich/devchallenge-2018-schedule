@@ -156,5 +156,18 @@
     "title": "Transport",
     "kind": "title",
     "background": "transparent"
+  },
+
+  {
+    "start": "7:30",
+    "end": "10:30",
+    "title": "Heavy traffic on the way to work",
+    "kind": "background"
+  },
+  {
+    "start": "17:00",
+    "end": "19:30",
+    "title": "Heavy traffic on the way to home",
+    "kind": "background"
   }
 ]

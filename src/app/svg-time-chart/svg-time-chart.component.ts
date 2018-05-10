@@ -28,6 +28,7 @@ if (!HTMLCanvasElement.prototype.toBlob) {
 })
 export class SvgTimeChartComponent implements OnInit {
 
+  @Input() title: string;
   @Input() timeRanges: TimeRangeModel[];
 
   @ViewChild('svg') svg;
@@ -56,6 +57,7 @@ export class SvgTimeChartComponent implements OnInit {
 
   public timeRangesColours: TimeRangeModel[];
   public timeRangesTitles: TimeRangeModel[];
+  public timeRangesBackgrounds: TimeRangeModel[];
 
   constructor() {
   }
@@ -73,6 +75,9 @@ export class SvgTimeChartComponent implements OnInit {
 
     this.timeRangesTitles = this.timeRanges
       .filter((timeRange) => TIME_RANGE_KIND.title === timeRange.kind);
+
+    this.timeRangesBackgrounds = this.timeRanges
+      .filter((timeRange) => TIME_RANGE_KIND.background === timeRange.kind);
 
     // For downloading
     this.png.nativeElement.onload = () => {
@@ -164,7 +169,7 @@ export class SvgTimeChartComponent implements OnInit {
         if (opacity === 1) {
           return `rgba(0, 0, 0, 1)`;
         }
-        return `rgba(255, 255, 255, 0)`;
+        return `rgba(230, 230, 230, ${opacity})`;
       default:
         return `rgba(230, 230, 230, ${opacity})`;
     }
