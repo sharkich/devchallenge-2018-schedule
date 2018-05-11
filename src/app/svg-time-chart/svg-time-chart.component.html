@@ -1,8 +1,15 @@
-<svg
+<div class="app-svg-time-chart">
+  <div class="actions">
+    <button (click)="onDownloadImage()">Download image</button>
+    <button (click)="onDownloadData()">Download data</button>
+  </div>
+
+  <svg
   xmlns="http://www.w3.org/2000/svg"
   xml:space="preserve"
   #svg
-  class="app-svg-time-chart">
+  style="margin: 0 auto; padding: 20px 0; width: 2146px; height: 480px;"
+  class="svg-time-chart">
 
   <defs>
         <filter
@@ -207,26 +214,25 @@
   Sorry, your browser does not support inline SVG.
 </svg>
 
-<hr>
+  <div [hidden]="!isDownload">
+    <h2><a [href]="downloadLink">Download</a></h2>
 
-<div [hidden]="!isDownload">
-  <h2><a [href]="downloadLink">Download</a></h2>
+    <canvas
+      [width]="svgWidthFull"
+      [height]="svgHeightFull"
+      #canvas>
+    </canvas>
 
-  <canvas
-    [width]="svgWidthFull"
-    [height]="svgHeightFull"
-    #canvas>
-  </canvas>
+    <hr>
 
-  <hr>
+    <img
+      [width]="svgWidthFull"
+      [height]="svgHeightFull"
+      alt=""
+      #png />
 
-  <img
-    [width]="svgWidthFull"
-    [height]="svgHeightFull"
-    alt=""
-    #png />
+  </div>
 
-  <hr>
+
+
 </div>
-
-<button (click)="onDownload()">Download</button>

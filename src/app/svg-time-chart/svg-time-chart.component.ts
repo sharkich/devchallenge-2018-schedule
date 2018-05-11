@@ -62,7 +62,7 @@ export class SvgTimeChartComponent implements OnInit {
   constructor() {
   }
 
-  ngOnInit() {
+  public ngOnInit() {
     this.timeRangesColours = this.timeRanges
       .filter((timeRange) => [
         TIME_RANGE_KIND.work,
@@ -90,24 +90,42 @@ export class SvgTimeChartComponent implements OnInit {
 
       // download
       const link = document.createElement('a');
-      link.download = 'file-name.png';
+      link.download = `${this.title}.png`;
       link.href = this.canvas.nativeElement.toDataURL();
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
-
-      this.png.nativeElement.src = null;
 
       // this.isDownload = true;
     };
 
   }
 
-  public onDownload() {
+  /**
+   * Events handlers
+   */
+
+  public onDownloadImage() {
     let data = new XMLSerializer().serializeToString(this.svg.nativeElement);
     data = encodeURIComponent(data);
     this.png.nativeElement.src = 'data:image/svg+xml,' + data;
   }
+
+  public onDownloadData() {
+    console.log('data');
+
+    // download
+    const link = document.createElement('a');
+    link.download = `${this.title} Data.json`;
+    link.href = 'data:text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(this.timeRanges));
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  }
+
+  /**
+   * Helpers for data in SVG (serializers)
+   */
 
   public rangeHeight(timeRanges: TimeRangeModel): number {
     return timeRanges.height ? this.rangeHeightHigh : this.rangeHeightNormal;

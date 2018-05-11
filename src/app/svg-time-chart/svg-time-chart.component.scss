@@ -1,27 +1,13 @@
 
-$width: 2098px;
-$height: 480px;
-
-$hour-width: round($width / 24);
-$half-width: round($hour-width / 2);
-$quarter-width: round($hour-width / 4);
-
-$axis-bottom: 80px;
-$axis--height-hour: 60px;
-$axis--height-half: 55px;
-$axis--height-quarter: 40px;
-
-$time-range-height: 30px;
-
 .app-svg-time-chart {
   font-family: Arial, sans-serif;
   font-size: 10pt;
   color: #000;
 
-  position: relative;
-  width: $width + 48px;
-  height: $height;
-  margin: 0 auto;
-  border: 1px solid #666;
-  padding: 20px 40px;
+  .actions {
+    margin-left: 40px;
+    button {
+      margin-right: 10px;
+    }
+  }
 }
