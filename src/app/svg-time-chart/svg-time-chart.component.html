@@ -64,7 +64,7 @@
             [attr.y]="svgMargin + 20"
             text-anchor="middle"
             fill="#666"
-            style="font-size: 9pt; font-weight: bold;">
+            style="font-family: Arial, sans-serif; font-size: 9pt; font-weight: bold;">
             {{timeRange.title}}
           </text>
         </g>
@@ -88,7 +88,7 @@
             text-anchor="end"
             [attr.transform]="'rotate(-90 ' + rangeTitleX(timeRange) + ',290)'"
             [attr.fill]="rangeColor(timeRange, 1)"
-            style="font-size: 9pt; font-weight: bold;">
+            style="font-family: Arial, sans-serif; font-size: 9pt; font-weight: bold;">
             {{timeRange.title}}
           </text>
       </g>
@@ -109,7 +109,7 @@
             [attr.y]="270"
             text-anchor="middle"
             [attr.fill]="'#000'"
-            style="font-size: 9pt; font-weight: bold;">
+            style="font-family: Arial, sans-serif; font-size: 9pt; font-weight: bold;">
             {{timeRange.title}}
           </text>
           <line
@@ -144,7 +144,7 @@
         [attr.x]="svgMargin + hour * svgHourWidth"
         y="170"
         text-anchor="middle"
-        style="color: #000; font-size: 9pt;">
+        style="font-family: Arial, sans-serif; color: #000; font-size: 9pt;">
         {{hour}}:00
       </text>
       <line
@@ -180,7 +180,7 @@
         [attr.x]="svgMargin + 24 * svgHourWidth"
         y="170"
         text-anchor="middle"
-        style="color: #000; font-size: 9pt;">
+        style="font-family: Arial, sans-serif; color: #000; font-size: 9pt;">
         24:00
       </text>
       <line
@@ -199,7 +199,7 @@
         x="40"
         y="60"
         text-anchor="start"
-        style="color: #000; font-size: 20pt;">
+        style="font-family: Arial, sans-serif; color: #000; font-size: 20pt;">
       {{title}}
     </text>
   </g>
