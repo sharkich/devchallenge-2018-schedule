@@ -2,6 +2,15 @@
   <div class="actions">
     <button (click)="onDownloadImage()">Download image</button>
     <button (click)="onDownloadData()">Download data</button>
+
+    <button (click)="onUploadData()">Upload new data</button>
+    <input
+      type="file"
+      #uploadFile
+      [hidden]="true"
+      (change)="onUploadFile($event)"/>
+
+    <button (click)="onClear()">Clear Schedule</button>
   </div>
 
   <svg

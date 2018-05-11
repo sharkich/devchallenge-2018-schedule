@@ -11,8 +11,8 @@ export class TimeRangeService {
     return this.http.get('/assets/schedule-original-fix.json')
       .toPromise()
       .then((res) => {
-        const timeRanges: TimeRangeModel[] = res.json().map((obj) => new TimeRangeModel(obj));
-        return timeRanges;
+        return res.json().map((obj) => new TimeRangeModel(obj));
       });
   }
+
 }
