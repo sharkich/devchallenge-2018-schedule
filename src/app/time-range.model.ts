@@ -21,6 +21,14 @@ export interface ITimeRangeModel {
   background?: string;
 }
 
+const DEFAULT_TIME_RANGE: ITimeRangeModel = {
+  start: '00:00',
+  end: '24:00',
+  kind: TIME_RANGE_KIND.blue,
+  title: 'New Range',
+  height: 0
+};
+
 export class TimeRangeModel implements ITimeRangeModel {
 
   public start: string;
@@ -38,23 +46,30 @@ export class TimeRangeModel implements ITimeRangeModel {
   private _hourEnd: number;
   private _minutesEnd: number;
 
-  constructor(data: ITimeRangeModel) {
+  constructor(data: ITimeRangeModel = DEFAULT_TIME_RANGE) {
     this.kind = data.kind;
 
-    this.start = data.start;
-    const startTime = data.start.split(':');
-    this._hourStart = +startTime[0];
-    this._minutesStart = +startTime[1];
-
-    this.end = data.end;
-    const endTime = data.end.split(':');
-    this._hourEnd = +endTime[0];
-    this._minutesEnd = +endTime[1];
+    this.setStart(data.start);
+    this.setEnd(data.end);
 
     this.title = data.title;
 
     this.height = +data.height;
     this.background = data.background;
+  }
+
+  public setStart(start: string = '0:0') {
+    this.start = start;
+    const startTime = start.split(':');
+    this._hourStart = +startTime[0];
+    this._minutesStart = +startTime[1];
+  }
+
+  public setEnd(end: string = '24:00') {
+    this.end = end;
+    const endTime = end.split(':');
+    this._hourEnd = +endTime[0];
+    this._minutesEnd = +endTime[1];
   }
 
   get hourStart() {

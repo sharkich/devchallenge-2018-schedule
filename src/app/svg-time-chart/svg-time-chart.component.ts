@@ -39,7 +39,7 @@ export class SvgTimeChartComponent implements OnInit {
 
   public svgMargin = 40;
 
-  public svgWidth = 2016;
+  public svgWidth = 1728;
   public svgWidthFull = this.svgWidth + this.svgMargin * 2;
 
   public svgHourWidth = Math.round(this.svgWidth / 24);
@@ -60,6 +60,15 @@ export class SvgTimeChartComponent implements OnInit {
   public timeRangesColours: TimeRangeModel[];
   public timeRangesTitles: TimeRangeModel[];
   public timeRangesBackgrounds: TimeRangeModel[];
+
+  public isEditRange = false;
+  public editingRange: TimeRangeModel;
+  public editingRangeTime = {
+    startHour: 0,
+    startMinutes: 0,
+    endHour: 24,
+    endMinutes: 0
+  };
 
   constructor() {
   }
@@ -90,26 +99,63 @@ export class SvgTimeChartComponent implements OnInit {
   }
 
   private _initData() {
-    this.timeRangesColours = this.timeRanges
-      .filter((timeRange) => [
-        TIME_RANGE_KIND.work,
-        TIME_RANGE_KIND.sleep,
-        TIME_RANGE_KIND.red,
-        TIME_RANGE_KIND.green,
-        TIME_RANGE_KIND.yellow,
-        TIME_RANGE_KIND.blue,
-      ].indexOf(timeRange.kind) !== -1);
+    setTimeout(() => {
+      this.timeRangesColours = this.timeRanges
+        .filter((timeRange) => [
+          TIME_RANGE_KIND.work,
+          TIME_RANGE_KIND.sleep,
+          TIME_RANGE_KIND.red,
+          TIME_RANGE_KIND.green,
+          TIME_RANGE_KIND.yellow,
+          TIME_RANGE_KIND.blue,
+        ].indexOf(timeRange.kind) !== -1);
 
-    this.timeRangesTitles = this.timeRanges
-      .filter((timeRange) => TIME_RANGE_KIND.title === timeRange.kind);
+      this.timeRangesTitles = this.timeRanges
+        .filter((timeRange) => TIME_RANGE_KIND.title === timeRange.kind);
 
-    this.timeRangesBackgrounds = this.timeRanges
-      .filter((timeRange) => TIME_RANGE_KIND.background === timeRange.kind);
+      this.timeRangesBackgrounds = this.timeRanges
+        .filter((timeRange) => TIME_RANGE_KIND.background === timeRange.kind);
+    });
   }
 
   /**
    * Events handlers
    */
+
+  public onAddRange() {
+    this.editingRange = new TimeRangeModel();
+    this.onChangeRangeTime();
+    this.isEditRange = true;
+  }
+
+  public onCancelNewRange() {
+    this.isEditRange = false;
+    this.editingRange = null;
+  }
+
+  public onChangeRangeTime() {
+    this.editingRange.setStart(`${this.editingRangeTime.startHour}:${this.editingRangeTime.startMinutes}`);
+    this.editingRange.setEnd(`${this.editingRangeTime.endHour}:${this.editingRangeTime.endMinutes}`);
+  }
+
+  public isValidNewRange(): boolean {
+    if (this.editingRange.start === this.editingRange.end) {
+      return false;
+    }
+    return true;
+  }
+
+  public onChangeRangeKind() {
+    console.log('onChangeRangeKind');
+    // todo: update form for additional fields
+  }
+
+  public onSaveNewRange() {
+    this.timeRanges.push(this.editingRange);
+    this.onCancelNewRange();
+    this._initData();
+    console.log(this.timeRanges);
+  }
 
   public onDownloadImage() {
     let data = new XMLSerializer().serializeToString(this.svg.nativeElement);
@@ -156,9 +202,7 @@ export class SvgTimeChartComponent implements OnInit {
 
   public onClear() {
     this.timeRanges.length = 0;
-    setTimeout(() => {
-      this._initData();
-    });
+    this._initData();
   }
 
   /**
