@@ -1,0 +1,490 @@
+<div class="app-dialog-create-new-schedule">
+  <h1 mat-dialog-title>Create new {{data.title}}</h1>
+  <div mat-dialog-content>
+
+    <mat-horizontal-stepper [linear]="true" #stepper>
+
+      <mat-step [stepControl]="firstFormGroup">
+        <form [formGroup]="firstFormGroup">
+          <ng-template matStepLabel>Sleep & Work</ng-template>
+
+          <div class="table">
+
+            <div class="cel" style="width: 40%">
+              <h4>Sleep from</h4>
+              <mat-form-field>
+                <mat-select
+                  [(value)]="formData.sleep.start.hour"
+                  placeholder="Hour"
+                  formControlName="sleepStartHour"
+                  required>
+                  <mat-option
+                    *ngFor="let hour of hours;"
+                    [value]="hour">
+                    {{hour}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+              <mat-form-field>
+                <mat-select
+                  [(value)]="formData.sleep.start.hour"
+                  placeholder="Minutes"
+                  formControlName="sleepStartMinutes"
+                  required>
+                  <mat-option [value]="0">00</mat-option>
+                  <mat-option [value]="15">15</mat-option>
+                  <mat-option [value]="30">30</mat-option>
+                  <mat-option [value]="45">45</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+
+            <div class="cel" style="width: 40%">
+              <h4>Sleep to</h4>
+              <mat-form-field>
+                <mat-select
+                  [(value)]="formData.sleep.end.hour"
+                  placeholder="Hour"
+                  formControlName="sleepEndHour"
+                  required>
+                  <mat-option
+                    *ngFor="let hour of hours;"
+                    [value]="hour">
+                    {{hour}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+              <mat-form-field>
+                <mat-select
+                  [(value)]="formData.sleep.end.minutes"
+                  placeholder="Minutes"
+                  formControlName="sleepEndMinutes"
+                  required>
+                  <mat-option [value]="0">00</mat-option>
+                  <mat-option [value]="15">15</mat-option>
+                  <mat-option [value]="30">30</mat-option>
+                  <mat-option [value]="45">45</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+
+            <div class="cel" style="width: 20%">
+              <h4>Sleep duration</h4>
+              <div class="result">
+                <strong>8h 30m</strong>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="table">
+
+            <div class="cel" style="width: 40%">
+              <h4>Work from</h4>
+              <mat-form-field>
+                <mat-select
+                  [(value)]="formData.work.start.hour"
+                  placeholder="Hour"
+                  formControlName="workStartHour"
+                  required>
+                  <mat-option
+                    *ngFor="let hour of hours;"
+                    [value]="hour">
+                    {{hour}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+              <mat-form-field>
+                <mat-select
+                  [(value)]="formData.work.start.hour"
+                  placeholder="Minutes"
+                  formControlName="workStartMinutes"
+                  required>
+                  <mat-option [value]="0">00</mat-option>
+                  <mat-option [value]="15">15</mat-option>
+                  <mat-option [value]="30">30</mat-option>
+                  <mat-option [value]="45">45</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+
+            <div class="cel" style="width: 40%">
+              <h4>Work to</h4>
+              <mat-form-field>
+                <mat-select
+                  [(value)]="formData.work.end.hour"
+                  placeholder="Hour"
+                  formControlName="workEndHour"
+                  required>
+                  <mat-option
+                    *ngFor="let hour of hours;"
+                    [value]="hour">
+                    {{hour}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+              <mat-form-field>
+                <mat-select
+                  [(value)]="formData.work.end.minutes"
+                  placeholder="Minutes"
+                  formControlName="workEndMinutes"
+                  required>
+                  <mat-option [value]="0">00</mat-option>
+                  <mat-option [value]="15">15</mat-option>
+                  <mat-option [value]="30">30</mat-option>
+                  <mat-option [value]="45">45</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+
+            <div class="cel" style="width: 20%">
+              <h4>Work duration</h4>
+              <div class="result">
+                <strong>8h 30m</strong>
+              </div>
+            </div>
+
+          </div>
+
+          <div>
+            <button mat-raised-button color="primary" matStepperNext>Next</button>
+          </div>
+        </form>
+      </mat-step>
+
+
+      <mat-step [stepControl]="secondFormGroup">
+        <form [formGroup]="secondFormGroup">
+          <ng-template matStepLabel>Transport</ng-template>
+
+          <div class="table">
+
+            <div class="cel" style="width: 40%">
+              <h4>Way to work start</h4>
+              <mat-form-field>
+                <mat-select
+                  [(value)]="formData.wayToWork.start.hour"
+                  placeholder="Hour"
+                  formControlName="wayToWorkStartHour"
+                  required>
+                  <mat-option
+                    *ngFor="let hour of hours;"
+                    [value]="hour">
+                    {{hour}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+              <mat-form-field>
+                <mat-select
+                  [(value)]="formData.wayToWork.start.hour"
+                  placeholder="Minutes"
+                  formControlName="wayToWorkStartMinutes"
+                  required>
+                  <mat-option [value]="0">00</mat-option>
+                  <mat-option [value]="15">15</mat-option>
+                  <mat-option [value]="30">30</mat-option>
+                  <mat-option [value]="45">45</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+
+            <div class="cel" style="width: 40%">
+              <h4>Way to work end</h4>
+              <mat-form-field>
+                <mat-select
+                  [(value)]="formData.wayToWork.end.hour"
+                  placeholder="Hour"
+                  formControlName="wayToWorkEndHour"
+                  required>
+                  <mat-option
+                    *ngFor="let hour of hours;"
+                    [value]="hour">
+                    {{hour}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+              <mat-form-field>
+                <mat-select
+                  [(value)]="formData.wayToWork.end.minutes"
+                  placeholder="Minutes"
+                  formControlName="wayToWorkEndMinutes"
+                  required>
+                  <mat-option [value]="0">00</mat-option>
+                  <mat-option [value]="15">15</mat-option>
+                  <mat-option [value]="30">30</mat-option>
+                  <mat-option [value]="45">45</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+
+            <div class="cel" style="width: 20%">
+              <h4>Duration to home</h4>
+              <div class="result">
+                <strong>8h 30m</strong>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="table">
+
+            <div class="cel" style="width: 40%">
+              <h4>Way to home start</h4>
+              <mat-form-field>
+                <mat-select
+                  [(value)]="formData.wayToHome.start.hour"
+                  placeholder="Hour"
+                  formControlName="wayToHomeStartHour"
+                  required>
+                  <mat-option
+                    *ngFor="let hour of hours;"
+                    [value]="hour">
+                    {{hour}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+              <mat-form-field>
+                <mat-select
+                  [(value)]="formData.wayToHome.start.hour"
+                  placeholder="Minutes"
+                  formControlName="wayToHomeStartMinutes"
+                  required>
+                  <mat-option [value]="0">00</mat-option>
+                  <mat-option [value]="15">15</mat-option>
+                  <mat-option [value]="30">30</mat-option>
+                  <mat-option [value]="45">45</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+
+            <div class="cel" style="width: 40%">
+              <h4>Way to home end</h4>
+              <mat-form-field>
+                <mat-select
+                  [(value)]="formData.wayToHome.end.hour"
+                  placeholder="Hour"
+                  formControlName="wayToHomeEndHour"
+                  required>
+                  <mat-option
+                    *ngFor="let hour of hours;"
+                    [value]="hour">
+                    {{hour}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+              <mat-form-field>
+                <mat-select
+                  [(value)]="formData.wayToHome.end.minutes"
+                  placeholder="Minutes"
+                  formControlName="wayToHomeEndMinutes"
+                  required>
+                  <mat-option [value]="0">00</mat-option>
+                  <mat-option [value]="15">15</mat-option>
+                  <mat-option [value]="30">30</mat-option>
+                  <mat-option [value]="45">45</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+
+            <div class="cel" style="width: 20%">
+              <h4>Duration to home</h4>
+              <div class="result">
+                <strong>8h 30m</strong>
+              </div>
+            </div>
+
+          </div>
+
+          <h5>
+            Heavy traffic: 7:30&mdash;10:30, 17:00&mdash;19:30
+            <button
+              (click)="onToggleChangeHeavyTraffic()"
+              mat-raised-button>Change Heavy Traffic</button>
+          </h5>
+
+          <div
+            *ngIf="isChangeHeavyTraffic"
+            class="table">
+
+            <div class="cel" style="width: 40%">
+              <h4>Morning heavy traffic start</h4>
+              <mat-form-field>
+                <mat-select
+                  [(value)]="formData.trafficToWork.start.hour"
+                  placeholder="Hour"
+                  formControlName="trafficToWorkStartHour"
+                  required>
+                  <mat-option
+                    *ngFor="let hour of hours;"
+                    [value]="hour">
+                    {{hour}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+              <mat-form-field>
+                <mat-select
+                  [(value)]="formData.trafficToWork.start.hour"
+                  placeholder="Minutes"
+                  formControlName="trafficToWorkStartMinutes"
+                  required>
+                  <mat-option [value]="0">00</mat-option>
+                  <mat-option [value]="15">15</mat-option>
+                  <mat-option [value]="30">30</mat-option>
+                  <mat-option [value]="45">45</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+
+            <div class="cel" style="width: 40%">
+              <h4>Morning heavy traffic end</h4>
+              <mat-form-field>
+                <mat-select
+                  [(value)]="formData.trafficToWork.end.hour"
+                  placeholder="Hour"
+                  formControlName="trafficToWorkEndHour"
+                  required>
+                  <mat-option
+                    *ngFor="let hour of hours;"
+                    [value]="hour">
+                    {{hour}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+              <mat-form-field>
+                <mat-select
+                  [(value)]="formData.trafficToWork.end.minutes"
+                  placeholder="Minutes"
+                  formControlName="trafficToWorkEndMinutes"
+                  required>
+                  <mat-option [value]="0">00</mat-option>
+                  <mat-option [value]="15">15</mat-option>
+                  <mat-option [value]="30">30</mat-option>
+                  <mat-option [value]="45">45</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+
+            <div class="cel" style="width: 20%">
+              <h4>Morning heavy traffic duration</h4>
+              <div class="result">
+                <strong>8h 30m</strong>
+              </div>
+            </div>
+
+          </div>
+
+          <div
+            *ngIf="isChangeHeavyTraffic"
+            class="table">
+
+            <div class="cel" style="width: 40%">
+              <h4>Evening heavy traffic start</h4>
+              <mat-form-field>
+                <mat-select
+                  [(value)]="formData.trafficToHome.start.hour"
+                  placeholder="Hour"
+                  formControlName="trafficToHomeStartHour"
+                  required>
+                  <mat-option
+                    *ngFor="let hour of hours;"
+                    [value]="hour">
+                    {{hour}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+              <mat-form-field>
+                <mat-select
+                  [(value)]="formData.trafficToHome.start.hour"
+                  placeholder="Minutes"
+                  formControlName="trafficToHomeStartMinutes"
+                  required>
+                  <mat-option [value]="0">00</mat-option>
+                  <mat-option [value]="15">15</mat-option>
+                  <mat-option [value]="30">30</mat-option>
+                  <mat-option [value]="45">45</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+
+            <div class="cel" style="width: 40%">
+              <h4>Evening heavy traffic end</h4>
+              <mat-form-field>
+                <mat-select
+                  [(value)]="formData.trafficToHome.end.hour"
+                  placeholder="Hour"
+                  formControlName="trafficToHomeEndHour"
+                  required>
+                  <mat-option
+                    *ngFor="let hour of hours;"
+                    [value]="hour">
+                    {{hour}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+              <mat-form-field>
+                <mat-select
+                  [(value)]="formData.trafficToHome.end.minutes"
+                  placeholder="Minutes"
+                  formControlName="trafficToHomeEndMinutes"
+                  required>
+                  <mat-option [value]="0">00</mat-option>
+                  <mat-option [value]="15">15</mat-option>
+                  <mat-option [value]="30">30</mat-option>
+                  <mat-option [value]="45">45</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+
+            <div class="cel" style="width: 20%">
+              <h4>Evening heavy traffic duration</h4>
+              <div class="result">
+                <strong>8h 30m</strong>
+              </div>
+            </div>
+
+          </div>
+
+          <div>
+            <button mat-raised-button color="primary" matStepperNext>Next</button>
+          </div>
+
+        </form>
+      </mat-step>
+
+
+      <mat-step [stepControl]="secondFormGroup">
+        <form [formGroup]="secondFormGroup">
+          <ng-template matStepLabel>Meetings and Events</ng-template>
+          <!--<mat-form-field>-->
+            <!--<input matInput placeholder="Address" formControlName="secondCtrl" required>-->
+          <!--</mat-form-field>-->
+          <div>
+            <button mat-button matStepperPrevious>Back</button>
+            <button mat-raised-button color="primary" matStepperNext>Next</button>
+          </div>
+        </form>
+      </mat-step>
+
+      <mat-step>
+        <ng-template matStepLabel>Done</ng-template>
+        <p>You are now done.</p>
+        <div>
+          <button
+            mat-raised-button
+            color="primary"
+            [mat-dialog-close]="formData"
+            cdkFocusInitial>
+            Apply
+          </button>
+        </div>
+      </mat-step>
+
+    </mat-horizontal-stepper>
+
+  </div>
+  <div mat-dialog-actions>
+    <button mat-button (click)="onNoClick()">Cancel</button>
+    <!--<button mat-button [mat-dialog-close]="data.animal" cdkFocusInitial>Ok</button>-->
+  </div>
+
+</div>

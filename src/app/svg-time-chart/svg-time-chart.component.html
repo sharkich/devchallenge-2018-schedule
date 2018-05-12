@@ -1,12 +1,28 @@
 <div class="app-svg-time-chart">
   <div class="actions">
-    <button (click)="onAddRange()">Add range</button>
+    <button (click)="onCreateNew()" mat-button color="primary">
+      <i class="material-icons">add_box</i>
+      Create new Schedule
+    </button>
+    <button (click)="onAddRange()" mat-button>
+      <i class="material-icons">add_circle_outline</i>
+      Add custom range
+    </button>
     |
-    <button (click)="onDownloadImage()">Download image</button>
+    <button (click)="onDownloadImage()" mat-button>
+      <i class="material-icons">image</i>
+      Download image
+    </button>
     |
-    <button (click)="onDownloadData()">Download data</button>
+    <button (click)="onDownloadData()" mat-button>
+      <i class="material-icons">save</i>
+      Download data
+    </button>
 
-    <button (click)="onUploadData()">Upload new data</button>
+    <button (click)="onUploadData()" mat-button>
+      <i class="material-icons">attach_file</i>
+      Import data
+    </button>
     <input
       type="file"
       #uploadFile
@@ -14,7 +30,10 @@
       (change)="onUploadFile($event)"/>
 
     |
-    <button (click)="onClear()">Clear Schedule</button>
+    <button (click)="onClear()" mat-button color="warn">
+      <i class="material-icons">clear</i>
+      Clear {{title}}
+    </button>
   </div>
 
   <div
@@ -202,9 +221,9 @@
           <text
             class="color-title"
             [attr.x]="rangeTitleX(timeRange)"
-            [attr.y]="290"
+            [attr.y]="rangeTitleY(timeRange)"
             text-anchor="end"
-            [attr.transform]="'rotate(-90 ' + rangeTitleX(timeRange) + ',290)'"
+            [attr.transform]="'rotate(-90 ' + rangeTitleX(timeRange) + ',' + rangeTitleY(timeRange) + ')'"
             [attr.fill]="rangeColor(timeRange, 1)"
             style="font-family: Arial, sans-serif; font-size: 9pt; font-weight: bold;">
             {{timeRange.title}}

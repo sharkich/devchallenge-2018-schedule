@@ -1,5 +1,9 @@
 import {Component, Input, OnInit, ViewChild} from '@angular/core';
+import {MatDialog} from '@angular/material';
+
 import {TIME_RANGE_KIND, TimeRangeModel} from '../time-range.model';
+import {DialogCreateNewScheduleComponent} from '../dialog-create-new-schedule/dialog-create-new-schedule.component';
+import {TimeRangeService} from '../time-range.service';
 
 // Edge Blob polyfill https://developer.mozilla.org/en-US/docs/Web/API/HTMLCanvasElement/toBlob
 if (!HTMLCanvasElement.prototype.toBlob) {
@@ -70,7 +74,8 @@ export class SvgTimeChartComponent implements OnInit {
     endMinutes: 0
   };
 
-  constructor() {
+  constructor(private timeRangeService: TimeRangeService,
+              private dialog: MatDialog) {
   }
 
   public ngOnInit() {
@@ -122,7 +127,27 @@ export class SvgTimeChartComponent implements OnInit {
    * Events handlers
    */
 
+  public onCreateNew() {
+    const dialogRef = this.dialog.open(DialogCreateNewScheduleComponent, {
+      width: '800px',
+      data: {
+        title: this.title
+      }
+    });
+
+    dialogRef.afterClosed()
+      .subscribe((result) => {
+        console.log('The dialog was closed');
+        this.timeRanges.length = 0;
+        this.timeRanges = this.timeRangeService.createSchedule(result);
+        this._initData();
+      });
+  }
+
   public onAddRange() {
+    if (this.isEditRange) {
+      return this.onCancelNewRange();
+    }
     this.editingRange = new TimeRangeModel();
     this.onChangeRangeTime();
     this.isEditRange = true;
@@ -277,6 +302,10 @@ export class SvgTimeChartComponent implements OnInit {
 
   public rangeTitleX(timeRange: TimeRangeModel): number {
     return this.rangeX(timeRange) + Math.round(this.rangeWidth(timeRange) / 2) + 4;
+  }
+
+  public rangeTitleY(timeRange: TimeRangeModel): number {
+    return timeRange.height === 2 ? 310 : 290;
   }
 
 }

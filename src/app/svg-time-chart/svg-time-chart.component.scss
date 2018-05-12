@@ -18,4 +18,13 @@
       margin-left: 10px;
     }
   }
+
+  .svg-time-chart {
+    .color {
+      cursor: pointer;
+    }
+    .color:hover {
+      opacity: 0.5;
+    }
+  }
 }
