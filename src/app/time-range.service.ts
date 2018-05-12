@@ -132,7 +132,7 @@ export class TimeRangeService {
       start: `${formData.work.start.hour}:${formData.work.start.minutes}`,
       end: `${formData.work.end.hour}:${formData.work.end.minutes}`,
       kind: TIME_RANGE_KIND.work,
-      title: 'Work',
+      title: 'Work Flow',
       height: 0
     }));
 

@@ -4,6 +4,8 @@ import {MatDialog} from '@angular/material';
 import {TIME_RANGE_KIND, TimeRangeModel} from '../time-range.model';
 import {DialogCreateNewScheduleComponent} from '../dialog-create-new-schedule/dialog-create-new-schedule.component';
 import {TimeRangeService} from '../time-range.service';
+import {DialogEditTimeRangeComponent} from '../dialog-edit-time-range/dialog-edit-time-range.component';
+import {FormGroup} from '@angular/forms';
 
 // Edge Blob polyfill https://developer.mozilla.org/en-US/docs/Web/API/HTMLCanvasElement/toBlob
 if (!HTMLCanvasElement.prototype.toBlob) {
@@ -65,17 +67,9 @@ export class SvgTimeChartComponent implements OnInit {
   public timeRangesTitles: TimeRangeModel[];
   public timeRangesBackgrounds: TimeRangeModel[];
 
-  public isEditRange = false;
-  public editingRange: TimeRangeModel;
-  public editingRangeTime = {
-    startHour: 0,
-    startMinutes: 0,
-    endHour: 24,
-    endMinutes: 0
-  };
-
-  constructor(private timeRangeService: TimeRangeService,
-              private dialog: MatDialog) {
+  constructor(
+    private timeRangeService: TimeRangeService,
+    private dialog: MatDialog) {
   }
 
   public ngOnInit() {
@@ -146,41 +140,7 @@ export class SvgTimeChartComponent implements OnInit {
   }
 
   public onAddRange() {
-    if (this.isEditRange) {
-      return this.onCancelNewRange();
-    }
-    this.editingRange = new TimeRangeModel();
-    this.onChangeRangeTime();
-    this.isEditRange = true;
-  }
-
-  public onCancelNewRange() {
-    this.isEditRange = false;
-    this.editingRange = null;
-  }
-
-  public onChangeRangeTime() {
-    this.editingRange.setStart(`${this.editingRangeTime.startHour}:${this.editingRangeTime.startMinutes}`);
-    this.editingRange.setEnd(`${this.editingRangeTime.endHour}:${this.editingRangeTime.endMinutes}`);
-  }
-
-  public isValidNewRange(): boolean {
-    if (this.editingRange.start === this.editingRange.end) {
-      return false;
-    }
-    return true;
-  }
-
-  public onChangeRangeKind() {
-    console.log('onChangeRangeKind');
-    // todo: update form for additional fields
-  }
-
-  public onSaveNewRange() {
-    this.timeRanges.push(this.editingRange);
-    this.onCancelNewRange();
-    this._initData();
-    console.log(this.timeRanges);
+    console.log('onAddRange');
   }
 
   public onDownloadImage() {
@@ -229,6 +189,28 @@ export class SvgTimeChartComponent implements OnInit {
   public onClear() {
     this.timeRanges.length = 0;
     this._initData();
+  }
+
+  public onRangeSelect(timeRange: TimeRangeModel) {
+    const dialogRef = this.dialog.open(DialogEditTimeRangeComponent, {
+      width: '600px',
+      data: {
+        timeRange
+      }
+    });
+
+    dialogRef.afterClosed()
+      .subscribe((result: FormGroup) => {
+        if (!result || result.invalid) {
+          return;
+        }
+        console.log('result', result);
+        timeRange.title = result.controls['title'].value;
+        timeRange.setStart(`${result.controls['startHour'].value}:${result.controls['startMinutes'].value}`);
+        timeRange.setEnd(`${result.controls['endHour'].value}:${result.controls['endMinutes'].value}`);
+        timeRange.kind = result.controls['kind'].value;
+        timeRange.height = result.controls['height'].value;
+      });
   }
 
   /**

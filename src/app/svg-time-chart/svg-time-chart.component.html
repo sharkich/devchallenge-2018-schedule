@@ -36,104 +36,6 @@
     </button>
   </div>
 
-  <div
-    *ngIf="isEditRange"
-    class="new-range">
-    <form (submit)="onSaveNewRange()">
-      <label>
-        Title:
-        <input [(ngModel)]="editingRange.title" name="title" />
-      </label>
-
-      <label>
-        Start:
-        <select
-          (change)="onChangeRangeTime()"
-          [(ngModel)]="editingRangeTime.startHour"
-          name="startHour">
-          <option
-            *ngFor="let hour of hours;"
-            [value]="hour">
-            {{hour}}
-          </option>
-        </select>
-      </label>
-      <select
-        (change)="onChangeRangeTime()"
-        [(ngModel)]="editingRangeTime.startMinutes"
-        name="startMinutes">
-        <option value="0" selected>00</option>
-        <option value="15">15</option>
-        <option value="30">30</option>
-        <option value="45">45</option>
-      </select>
-
-      <label>
-        End:
-        <select
-          (change)="onChangeRangeTime()"
-          [(ngModel)]="editingRangeTime.endHour"
-          name="endHour">
-          <option
-            *ngFor="let hour of hours;"
-            [value]="hour">
-            {{hour}}
-          </option>
-          <option value="24">24</option>
-        </select>
-      </label>
-      <select
-        (change)="onChangeRangeTime()"
-        [(ngModel)]="editingRangeTime.endMinutes"
-        name="endMinutes">
-        <option value="0" selected>00</option>
-        <option value="15">15</option>
-        <option value="30">30</option>
-        <option value="45">45</option>
-      </select>
-
-      <label>
-        Kind:
-        <select
-          (change)="onChangeRangeKind()"
-          [(ngModel)]="editingRange.kind"
-          name="kind">
-          <option value="red">red</option>
-          <option value="yellow">yellow</option>
-          <option value="green">green</option>
-          <option value="blue">blue</option>
-          <option value="title">title</option>
-          <option value="work">work</option>
-          <option value="sleep">sleep</option>
-          <option value="background">background</option>
-        </select>
-      </label>
-
-      <label>
-        Height:
-        <select
-          [(ngModel)]="editingRange.height"
-          name="height">
-          <option value="0">Low</option>
-          <option value="1">High</option>
-        </select>
-      </label>
-
-      <label>
-        Background:
-        <select
-          [(ngModel)]="editingRange.background"
-          name="background">
-          <option value="transparent">transparent</option>
-          <option value="green">green</option>
-        </select>
-      </label>
-
-      <button type="submit" [disabled]="!isValidNewRange()">Save</button> <!-- todo: validation -->
-      <button type="button" (click)="onCancelNewRange()">Cancel</button>
-    </form>
-  </div>
-
   <svg
   xmlns="http://www.w3.org/2000/svg"
   xml:space="preserve"
@@ -210,6 +112,7 @@
 
       <g
         *ngFor="let timeRange of timeRangesColours; index as i;"
+        (click)="onRangeSelect(timeRange)"
         class="color-group">
           <rect
             class="color"

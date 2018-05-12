@@ -1,0 +1,15 @@
+.app-dialog-edit-time-range {
+  .table {
+    display: flex;
+    .cel {
+      .mat-form-field {
+        width: 100px;
+      }
+      .result {
+      }
+    }
+  }
+  .range-title, .range-kind {
+    width: 100%;
+  }
+}

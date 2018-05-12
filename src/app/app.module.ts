@@ -9,12 +9,14 @@ import {AppComponent} from './app.component';
 import {SvgTimeChartComponent} from './svg-time-chart/svg-time-chart.component';
 import {TimeRangeService} from './time-range.service';
 import {DialogCreateNewScheduleComponent} from './dialog-create-new-schedule/dialog-create-new-schedule.component';
+import {DialogEditTimeRangeComponent} from './dialog-edit-time-range/dialog-edit-time-range.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     SvgTimeChartComponent,
-    DialogCreateNewScheduleComponent
+    DialogCreateNewScheduleComponent,
+    DialogEditTimeRangeComponent
   ],
   imports: [
     BrowserModule,
@@ -34,7 +36,8 @@ import {DialogCreateNewScheduleComponent} from './dialog-create-new-schedule/dia
     TimeRangeService
   ],
   entryComponents: [
-    DialogCreateNewScheduleComponent
+    DialogCreateNewScheduleComponent,
+    DialogEditTimeRangeComponent
   ],
   bootstrap: [AppComponent]
 })

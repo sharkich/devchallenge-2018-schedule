@@ -11,8 +11,8 @@ export class DialogCreateNewScheduleComponent implements OnInit {
 
   public hours = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23];
 
-  firstFormGroup: FormGroup;
-  secondFormGroup: FormGroup;
+  public firstFormGroup: FormGroup;
+  public secondFormGroup: FormGroup;
 
   public formData = {
     sleep: {
@@ -123,7 +123,7 @@ export class DialogCreateNewScheduleComponent implements OnInit {
     });
   }
 
-  public onNoClick(): void {
+  public onNoClick() {
     this.dialogRef.close();
   }
 

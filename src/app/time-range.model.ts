@@ -3,10 +3,12 @@ export const TIME_RANGE_KIND = {
   yellow: 'yellow',
   green: 'green',
   blue: 'blue',
+
   title: 'title',
+  background: 'background',
+
   work: 'work',
-  sleep: 'sleep',
-  background: 'background'
+  sleep: 'sleep'
 };
 
 export interface ITimeRangeModel {

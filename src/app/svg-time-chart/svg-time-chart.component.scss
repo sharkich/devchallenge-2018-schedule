@@ -20,11 +20,16 @@
   }
 
   .svg-time-chart {
-    .color {
-      cursor: pointer;
+    .color-group {
+      .color, .color-title {
+        cursor: pointer;
+      }
     }
-    .color:hover {
-      opacity: 0.5;
+    .color-group:hover {
+      .color, .color-title {
+        opacity: 0.5;
+      }
     }
+
   }
 }

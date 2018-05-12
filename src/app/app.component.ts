@@ -11,7 +11,8 @@ export class AppComponent implements OnInit {
 
   public currentSchedule: TimeRangeModel[];
 
-  constructor(private timeRangeService: TimeRangeService) {
+  constructor(
+    private timeRangeService: TimeRangeService) {
   }
 
   public ngOnInit() {

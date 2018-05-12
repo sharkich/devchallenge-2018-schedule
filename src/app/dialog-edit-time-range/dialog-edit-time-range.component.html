@@ -1,0 +1,128 @@
+<div class="app-dialog-edit-time-range">
+  <h1 mat-dialog-title>Edit Time Range{{data.timeRange.title}}</h1>
+  <div mat-dialog-content>
+
+    <form [formGroup]="firstFormGroup">
+
+      <mat-form-field class="range-title">
+        <input
+          matInput
+          placeholder="Title"
+          [(value)]="formData.title"
+          formControlName="title">
+      </mat-form-field>
+
+      <div class="table">
+
+        <div class="cel" style="width: 40%">
+          <h4>Time from</h4>
+          <mat-form-field>
+            <mat-select
+              [(value)]="formData.start.hour"
+              placeholder="Hour"
+              formControlName="startHour"
+              required>
+              <mat-option
+                *ngFor="let hour of hours;"
+                [value]="hour">
+                {{hour}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field>
+            <mat-select
+              [(value)]="formData.start.minutes"
+              placeholder="Minutes"
+              formControlName="startMinutes"
+              required>
+              <mat-option [value]="0">00</mat-option>
+              <mat-option [value]="15">15</mat-option>
+              <mat-option [value]="30">30</mat-option>
+              <mat-option [value]="45">45</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <div class="cel" style="width: 40%">
+          <h4>Time to</h4>
+          <mat-form-field>
+            <mat-select
+              [(value)]="formData.end.hour"
+              placeholder="Hour"
+              formControlName="endHour"
+              required>
+              <mat-option
+                *ngFor="let hour of hours;"
+                [value]="hour">
+                {{hour}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field>
+            <mat-select
+              [(value)]="formData.end.minutes"
+              placeholder="Minutes"
+              formControlName="endMinutes"
+              required>
+              <mat-option [value]="0">00</mat-option>
+              <mat-option [value]="15">15</mat-option>
+              <mat-option [value]="30">30</mat-option>
+              <mat-option [value]="45">45</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <div class="cel" style="width: 20%">
+          <h4>Duration</h4>
+          <div class="result">
+            <strong>8h 30m</strong>
+          </div>
+        </div>
+
+      </div>
+
+      <mat-form-field class="range-kind">
+        <mat-select
+          [(value)]="formData.kind"
+          placeholder="Kind"
+          formControlName="kind"
+          required>
+          <mat-option value="blue">Blue Color Range</mat-option>
+          <mat-option value="green">Green Color Range</mat-option>
+          <mat-option value="yellow">Yellow Color Range</mat-option>
+          <mat-option value="red">Red Color Range</mat-option>
+
+          <!--<mat-option value="title" disabled="disabled">Title Range (Transport, Activities)</mat-option>-->
+          <!--<mat-option value="background" disabled="disabled">Background Range (Heavy traffic)</mat-option>-->
+
+          <mat-option value="work" disabled="disabled">Specific Range for Work</mat-option>
+          <mat-option value="sleep" disabled="disabled">Specific Range for Sleep</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field class="range-height">
+        <mat-select
+          [(value)]="formData.height"
+          placeholder="Height"
+          formControlName="height"
+          required>
+          <mat-option [value]="0">Low</mat-option>
+          <mat-option [value]="1">High</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+    </form>
+
+  </div>
+  <div mat-dialog-actions>
+    <button mat-button (click)="onNoClick()">Cancel</button>
+    <button
+      mat-raised-button
+      color="primary"
+      [mat-dialog-close]="firstFormGroup"
+      cdkFocusInitial>
+      OK
+    </button>
+  </div>
+
+</div>
