@@ -140,7 +140,7 @@ export class SvgTimeChartComponent implements OnInit {
   }
 
   public onAddRange() {
-    console.log('onAddRange');
+    this.onRangeSelect(new TimeRangeModel(), true);
   }
 
   public onDownloadImage() {
@@ -191,7 +191,7 @@ export class SvgTimeChartComponent implements OnInit {
     this._initData();
   }
 
-  public onRangeSelect(timeRange: TimeRangeModel) {
+  public onRangeSelect(timeRange: TimeRangeModel, isNew = false) {
     const dialogRef = this.dialog.open(DialogEditTimeRangeComponent, {
       width: '600px',
       data: {
@@ -204,12 +204,16 @@ export class SvgTimeChartComponent implements OnInit {
         if (!result || result.invalid) {
           return;
         }
-        console.log('result', result);
         timeRange.title = result.controls['title'].value;
         timeRange.setStart(`${result.controls['startHour'].value}:${result.controls['startMinutes'].value}`);
         timeRange.setEnd(`${result.controls['endHour'].value}:${result.controls['endMinutes'].value}`);
         timeRange.kind = result.controls['kind'].value;
         timeRange.height = result.controls['height'].value;
+
+        if (isNew) {
+          this.timeRanges.push(timeRange);
+          this._initData();
+        }
       });
   }
 

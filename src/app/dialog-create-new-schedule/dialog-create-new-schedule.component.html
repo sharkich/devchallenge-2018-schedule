@@ -2,6 +2,8 @@
   <h1 mat-dialog-title>Create new {{data.title}}</h1>
   <div mat-dialog-content>
 
+    <p>Erase current Schedule and Create New</p>
+
     <mat-horizontal-stepper [linear]="true" #stepper>
 
       <mat-step [stepControl]="firstFormGroup">
@@ -445,38 +447,17 @@
           </div>
 
           <div>
-            <button mat-raised-button color="primary" matStepperNext>Next</button>
-          </div>
-
-        </form>
-      </mat-step>
-
-
-      <mat-step [stepControl]="secondFormGroup">
-        <form [formGroup]="secondFormGroup">
-          <ng-template matStepLabel>Meetings and Events</ng-template>
-          <!--<mat-form-field>-->
-            <!--<input matInput placeholder="Address" formControlName="secondCtrl" required>-->
-          <!--</mat-form-field>-->
-          <div>
             <button mat-button matStepperPrevious>Back</button>
-            <button mat-raised-button color="primary" matStepperNext>Next</button>
+            <button
+              mat-raised-button
+              color="primary"
+              [mat-dialog-close]="formData"
+              cdkFocusInitial>
+              Apply
+            </button>
           </div>
-        </form>
-      </mat-step>
 
-      <mat-step>
-        <ng-template matStepLabel>Done</ng-template>
-        <p>You are now done.</p>
-        <div>
-          <button
-            mat-raised-button
-            color="primary"
-            [mat-dialog-close]="formData"
-            cdkFocusInitial>
-            Apply
-          </button>
-        </div>
+        </form>
       </mat-step>
 
     </mat-horizontal-stepper>

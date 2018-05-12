@@ -127,14 +127,14 @@ export class TimeRangeService {
       title: 'Activity at home',
       height: 0
     }));
-    // Work // TODO: devided by other events
-    this._addRange(result, new TimeRangeModel({
-      start: `${formData.work.start.hour}:${formData.work.start.minutes}`,
-      end: `${formData.work.end.hour}:${formData.work.end.minutes}`,
-      kind: TIME_RANGE_KIND.work,
-      title: 'Work Flow',
-      height: 0
-    }));
+    // Work Flow
+    // this._addRange(result, new TimeRangeModel({
+    //   start: `${formData.work.start.hour}:${formData.work.start.minutes}`,
+    //   end: `${formData.work.end.hour}:${formData.work.end.minutes}`,
+    //   kind: TIME_RANGE_KIND.work,
+    //   title: 'Work Flow',
+    //   height: 0
+    // }));
 
     console.log('result', result);
     return result;

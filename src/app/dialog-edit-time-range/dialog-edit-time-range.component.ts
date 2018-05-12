@@ -36,7 +36,6 @@ export class DialogEditTimeRangeComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log('init', this.data.timeRange);
     this.formData.title = this.data.timeRange.title;
 
     this.formData.start.hour = this.data.timeRange.hourStart;
