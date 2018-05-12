@@ -137,10 +137,11 @@ export class SvgTimeChartComponent implements OnInit {
 
     dialogRef.afterClosed()
       .subscribe((result) => {
-        console.log('The dialog was closed');
-        this.timeRanges.length = 0;
-        this.timeRanges = this.timeRangeService.createSchedule(result);
-        this._initData();
+        if (result) {
+          this.timeRanges.length = 0;
+          this.timeRanges = this.timeRangeService.createSchedule(result);
+          this._initData();
+        }
       });
   }
 
