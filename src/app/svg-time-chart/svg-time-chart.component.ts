@@ -47,6 +47,8 @@ export class SvgTimeChartComponent implements OnInit {
   public timeRangesTitles: TimeRangeModel[];
   public timeRangesBackgrounds: TimeRangeModel[];
 
+  public id: string;
+
   constructor(
     private timeRangeService: TimeRangeService,
     private svgService: SvgService,
@@ -54,6 +56,8 @@ export class SvgTimeChartComponent implements OnInit {
   }
 
   public ngOnInit() {
+    this.id = '' + Math.random();
+
     this.svgMargin = this.svgService.svgMargin;
     this.svgWidthFull = this.svgService.svgWidthFull;
     this.svgHourWidth = this.svgService.svgHourWidth;

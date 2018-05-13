@@ -20,10 +20,16 @@ export class AppComponent implements OnInit {
     this.timeRangeService.getInitRegularSchedule()
       .then((timeRanges: TimeRangeModel[]) => {
         this.currentSchedule = timeRanges;
+      })
+      .catch(() => {
+        this.currentSchedule = [];
       });
     this.timeRangeService.getInitOptimizedSchedule()
       .then((timeRanges: TimeRangeModel[]) => {
         this.optimizedSchedule = timeRanges;
+      })
+      .catch(() => {
+        this.optimizedSchedule = [];
       });
   }
 

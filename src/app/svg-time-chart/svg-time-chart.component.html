@@ -50,7 +50,7 @@
 
   <defs>
         <filter
-          id="dashedBackground"
+          [id]="'dashedBackground'+id"
           x="0"
           y="0"
           width="100%"
@@ -99,7 +99,7 @@
             [attr.width]="rangeWidth(timeRange)"
             [attr.height]="svgHeight"
             fill="#eee"
-            filter="url(#dashedBackground)"
+            [attr.filter]="'url(#dashedBackground' + id +')'"
           />
         <g>
           <text

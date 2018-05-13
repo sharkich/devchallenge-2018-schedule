@@ -1,21 +1,27 @@
 <div class="app-root">
 
-  <app-svg-time-chart
-    *ngIf="currentSchedule"
-    [title]="'Regular Schedule'"
-    [timeRanges]="currentSchedule"
-    [copyFrom]="optimizedSchedule"
-    [copyFromTitle]="'Optimized'"
-  ></app-svg-time-chart>
+  <h1 *ngIf="!currentSchedule || !optimizedSchedule">Almost loaded...</h1>
 
-  <hr>
+  <div *ngIf="currentSchedule && optimizedSchedule">
 
-  <app-svg-time-chart
-    *ngIf="optimizedSchedule"
-    [title]="'Optimized Schedule'"
-    [timeRanges]="optimizedSchedule"
-    [copyFrom]="currentSchedule"
-    [copyFromTitle]="'Regular'"
-  ></app-svg-time-chart>
+    <app-svg-time-chart
+      *ngIf="currentSchedule"
+      [title]="'Regular Schedule'"
+      [timeRanges]="currentSchedule"
+      [copyFrom]="optimizedSchedule"
+      [copyFromTitle]="'Optimized'"
+    ></app-svg-time-chart>
+
+    <hr>
+
+    <app-svg-time-chart
+      *ngIf="optimizedSchedule"
+      [title]="'Optimized Schedule'"
+      [timeRanges]="optimizedSchedule"
+      [copyFrom]="currentSchedule"
+      [copyFromTitle]="'Regular'"
+    ></app-svg-time-chart>
+
+  </div>
 
 </div>
