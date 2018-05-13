@@ -108,7 +108,7 @@
             [attr.y]="svgMargin + 20"
             text-anchor="middle"
             fill="#666"
-            style="font-family: Arial, sans-serif; font-size: 9pt; font-weight: bold;">
+            style="font-family: Arial, sans-serif; font-size: 8pt; font-weight: bold;">
             {{timeRange.title}}
           </text>
         </g>
@@ -135,9 +135,15 @@
             [attr.fill]="rangeColor(timeRange, 1)"
             style="font-family: Arial, sans-serif; font-size: 9pt; font-weight: bold;">
             {{timeRange.title}}
-            <tspan style="font-weight: normal; font-size: 8pt;" fill="#eee">(</tspan>
-            <tspan style="font-weight: normal; font-size: 8pt;" fill="#999">{{duration(timeRange)}}</tspan>
-            <tspan style="font-weight: normal; font-size: 8pt;" fill="#eee">)</tspan>
+            <tspan
+              *ngIf="duration(timeRange)"
+              style="font-weight: normal; font-size: 8pt;" fill="#eee">(</tspan>
+            <tspan
+              *ngIf="duration(timeRange)"
+              style="font-weight: normal; font-size: 8pt;" fill="#999">{{duration(timeRange)}}</tspan>
+            <tspan
+              *ngIf="duration(timeRange)"
+              style="font-weight: normal; font-size: 8pt;" fill="#eee">)</tspan>
           </text>
       </g>
 

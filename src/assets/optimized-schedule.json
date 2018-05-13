@@ -1,6 +1,6 @@
 [
   {
-    "start": "23:30",
+    "start": "22:30",
     "end": "24:00",
     "title": "Sleep",
     "kind": "sleep",
@@ -8,26 +8,64 @@
   },
   {
     "start": "00:00",
-    "end": "8:00",
+    "end": "6:00",
     "title": "Sleep",
     "kind": "sleep",
     "height": 0
   },
   {
-    "start": "8:00",
-    "end": "9:00",
+    "start": "6:00",
+    "end": "6:45",
     "title": "",
     "kind": "red",
     "height": 0
   },
   {
-    "start": "9:00",
-    "end": "10:00",
+    "start": "6:45",
+    "end": "7:15",
     "title": "",
     "kind": "red",
     "height": 0
   },
+  {
+    "start": "6:45",
+    "end": "7:15",
+    "title": "Car",
+    "kind": "title",
+    "background": "transparent"
+  },
 
+
+  {
+    "start": "7:15",
+    "end": "7:15",
+    "title": "Work starts",
+    "kind": "red",
+    "height": 2
+  },
+  {
+    "start": "16:15",
+    "end": "16:15",
+    "title": "Work ends",
+    "kind": "red",
+    "height": 2
+  },
+
+  {
+    "start": "7:15",
+    "end": "7:30",
+    "title": "Coffee",
+    "kind": "yellow",
+    "height": 1
+  },
+
+  {
+    "start": "7:30",
+    "end": "10:00",
+    "title": "Most productive flow",
+    "kind": "green",
+    "height": 1
+  },
 
   {
     "start": "10:00",
@@ -36,23 +74,17 @@
     "kind": "red",
     "height": 1
   },
+
   {
     "start": "10:30",
     "end": "10:45",
-    "title": "Coffee",
-    "kind": "yellow",
-    "height": 1
-  },
-  {
-    "start": "10:45",
-    "end": "11:00",
     "title": "Back to flow",
     "kind": "yellow",
     "height": 1
   },
 
   {
-    "start": "11:00",
+    "start": "10:45",
     "end": "12:00",
     "title": "Flow",
     "kind": "green",
@@ -76,86 +108,48 @@
 
   {
     "start": "13:45",
-    "end": "16:00",
+    "end": "16:15",
     "title": "Flow",
     "kind": "green",
     "height": 1
   },
 
-  {
-    "start": "16:00",
-    "end": "16:15",
-    "title": "Meal",
-    "kind": "red",
-    "height": 1
-  },
   {
     "start": "16:15",
-    "end": "16:45",
-    "title": "Back to flow",
-    "kind": "yellow",
-    "height": 1
-  },
-
-  {
-    "start": "16:45",
-    "end": "19:00",
-    "title": "Flow",
-    "kind": "green",
-    "height": 1
-  },
-
-  {
-    "start": "19:00",
-    "end": "20:00",
+    "end": "17:00",
     "title": "",
     "kind": "red",
     "height": 0
   },
+  {
+    "start": "16:15",
+    "end": "17:00",
+    "title": "Car",
+    "kind": "title",
+    "background": "transparent"
+  },
 
   {
-    "start": "20:00",
+    "start": "17:00",
     "end": "22:30",
     "title": "Time with family",
     "kind": "green",
     "height": 1
   },
-  {
-    "start": "22:30",
-    "end": "23:30",
-    "title": "Personal time",
-    "kind": "yellow",
-    "height": 1
-  },
 
   {
-    "start": "10:00",
-    "end": "19:00",
+    "start": "7:15",
+    "end": "16:15",
     "title": "Activity at work",
     "kind": "title",
     "background": "green"
   },
   {
-    "start": "20:00",
-    "end": "23:30",
+    "start": "17:00",
+    "end": "22:30",
     "title": "Activity at home",
     "kind": "title",
     "background": "green"
-  },
-
-  {
-    "start": "9:00",
-    "end": "10:00",
-    "title": "Transport",
-    "kind": "title",
-    "background": "transparent"
-  },
-  {
-    "start": "19:00",
-    "end": "20:00",
-    "title": "Transport",
-    "kind": "title",
-    "background": "transparent"
   },
 
   {
@@ -170,4 +164,5 @@
     "title": "Heavy traffic on the way to home",
     "kind": "background"
   }
+
 ]

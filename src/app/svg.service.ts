@@ -131,7 +131,7 @@ export class SvgService {
   }
 
   public rangeTitleY(timeRange: TimeRangeModel): number {
-    return timeRange.height === 2 ? 310 : 290;
+    return timeRange.height === 2 ? 75 : 290;
   }
 
 }
