@@ -73,7 +73,7 @@
             <div class="cel" style="width: 20%">
               <h4>Sleep duration</h4>
               <div class="result">
-                <strong>8h 30m</strong>
+                <strong>{{duration(formData.sleep.start.hour, formData.sleep.start.minutes, formData.sleep.end.hour, formData.sleep.end.minutes)}}</strong>
               </div>
             </div>
 
@@ -142,7 +142,7 @@
             <div class="cel" style="width: 20%">
               <h4>Work duration</h4>
               <div class="result">
-                <strong>8h 30m</strong>
+                <strong>{{duration(formData.work.start.hour, formData.work.start.minutes, formData.work.end.hour, formData.work.end.minutes)}}</strong>
               </div>
             </div>
 
@@ -220,9 +220,9 @@
             </div>
 
             <div class="cel" style="width: 20%">
-              <h4>Duration to home</h4>
+              <h4>Duration to work</h4>
               <div class="result">
-                <strong>8h 30m</strong>
+                <strong>{{duration(formData.wayToWork.start.hour, formData.wayToWork.start.minutes, formData.wayToWork.end.hour, formData.wayToWork.end.minutes)}}</strong>
               </div>
             </div>
 
@@ -291,14 +291,13 @@
             <div class="cel" style="width: 20%">
               <h4>Duration to home</h4>
               <div class="result">
-                <strong>8h 30m</strong>
+                <strong>{{duration(formData.wayToHome.start.hour, formData.wayToHome.start.minutes, formData.wayToHome.end.hour, formData.wayToHome.end.minutes)}}</strong>
               </div>
             </div>
 
           </div>
 
           <h5>
-            Heavy traffic: 7:30&mdash;10:30, 17:00&mdash;19:30
             <button
               (click)="onToggleChangeHeavyTraffic()"
               mat-raised-button>Change Heavy Traffic</button>
@@ -369,7 +368,7 @@
             <div class="cel" style="width: 20%">
               <h4>Morning heavy traffic duration</h4>
               <div class="result">
-                <strong>8h 30m</strong>
+                <strong>{{duration(formData.trafficToWork.start.hour, formData.trafficToWork.start.minutes, formData.trafficToWork.end.hour, formData.trafficToWork.end.minutes)}}</strong>
               </div>
             </div>
 
@@ -440,7 +439,7 @@
             <div class="cel" style="width: 20%">
               <h4>Evening heavy traffic duration</h4>
               <div class="result">
-                <strong>8h 30m</strong>
+                <strong>{{duration(formData.trafficToHome.start.hour, formData.trafficToHome.start.minutes, formData.trafficToHome.end.hour, formData.trafficToHome.end.minutes)}}</strong>
               </div>
             </div>
 

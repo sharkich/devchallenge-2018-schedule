@@ -61,7 +61,7 @@ export class SvgTimeChartComponent implements OnInit {
     this.svgQuarterWidth = this.svgService.svgQuarterWidth;
     this.svgHeight = this.svgService.svgHeight;
     this.svgHeightFull = this.svgService.svgHeightFull;
-    this.hours = this.svgService.hours;
+    this.hours = this.timeRangeService.hours();
 
     this._initData();
 
@@ -93,7 +93,7 @@ export class SvgTimeChartComponent implements OnInit {
 
     dialogRef.afterClosed()
       .subscribe((result) => {
-        if (result) {
+        if (!result) {
           return;
         }
         this.timeRanges.length = 0;
@@ -198,6 +198,10 @@ export class SvgTimeChartComponent implements OnInit {
 
   public rangeTitleY(timeRange: TimeRangeModel): number {
     return this.svgService.rangeTitleY(timeRange);
+  }
+
+  public duration(range: TimeRangeModel) {
+    return this.timeRangeService.durationRange(range);
   }
 
 }

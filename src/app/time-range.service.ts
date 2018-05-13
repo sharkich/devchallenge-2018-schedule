@@ -222,6 +222,32 @@ export class TimeRangeService {
     });
   }
 
+  public durationRange(range: TimeRangeModel): string {
+    return this.duration(range.hourStart, range.minutesStart, range.hourEnd, range.minutesEnd);
+  }
+
+  public duration(startH: number, startM: number, endH: number, endM: number): string {
+    const _startM = startH * 60 + startM;
+    const _endM = endH * 60 + endM;
+    let _resM = _endM - _startM;
+    if (_resM <= 0) {
+      _resM += 24 * 60;
+    }
+    const resH = Math.floor(_resM / 60);
+    const resM = _resM % 60;
+    if (resH === 0) {
+      return `${resM}m`;
+    }
+    if (resM === 0) {
+      return `${resH}h`;
+    }
+    return `${resH}h ${resM}m`;
+  }
+
+  public hours(length = 24): number[] {
+    return Array.from(Array(length).keys());
+  }
+
   /*
   Private
    */

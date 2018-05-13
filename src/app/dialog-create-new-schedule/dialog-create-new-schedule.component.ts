@@ -2,6 +2,8 @@ import {Component, Inject, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 
+import {TimeRangeService} from '../time-range.service';
+
 @Component({
   selector: 'app-dialog-create-new-schedule',
   templateUrl: './dialog-create-new-schedule.component.html',
@@ -9,7 +11,7 @@ import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 })
 export class DialogCreateNewScheduleComponent implements OnInit {
 
-  public hours = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23];
+  public hours: number[];
 
   public firstFormGroup: FormGroup;
   public secondFormGroup: FormGroup;
@@ -82,12 +84,15 @@ export class DialogCreateNewScheduleComponent implements OnInit {
   public isChangeHeavyTraffic = false;
 
   constructor(
+    private timeRangeService: TimeRangeService,
     public dialogRef: MatDialogRef<DialogCreateNewScheduleComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private _formBuilder: FormBuilder) {
   }
 
   public ngOnInit() {
+    this.hours = this.timeRangeService.hours();
+
     this.firstFormGroup = this._formBuilder.group({
       sleepStartHour: [this.formData.sleep.start.hour, Validators.required],
       sleepStartMinutes: [this.formData.sleep.start.minutes, Validators.required],
@@ -129,6 +134,10 @@ export class DialogCreateNewScheduleComponent implements OnInit {
 
   public onToggleChangeHeavyTraffic() {
     this.isChangeHeavyTraffic = !this.isChangeHeavyTraffic;
+  }
+
+  public duration(startH, startM, endH, endM): string {
+    return this.timeRangeService.duration(startH, startM, endH, endM);
   }
 
 }

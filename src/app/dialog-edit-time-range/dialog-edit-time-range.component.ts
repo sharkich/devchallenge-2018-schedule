@@ -2,7 +2,9 @@ import {Component, Inject, OnInit} from '@angular/core';
 import {DialogCreateNewScheduleComponent} from '../dialog-create-new-schedule/dialog-create-new-schedule.component';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+
 import {TIME_RANGE_KIND} from '../time-range.model';
+import {TimeRangeService} from '../time-range.service';
 
 @Component({
   selector: 'app-dialog-edit-time-range',
@@ -11,7 +13,7 @@ import {TIME_RANGE_KIND} from '../time-range.model';
 })
 export class DialogEditTimeRangeComponent implements OnInit {
 
-  public hours = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24];
+  public hours: number[];
 
   public firstFormGroup: FormGroup;
 
@@ -30,12 +32,15 @@ export class DialogEditTimeRangeComponent implements OnInit {
   };
 
   constructor(
+    private timeRangeService: TimeRangeService,
     public dialogRef: MatDialogRef<DialogCreateNewScheduleComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private _formBuilder: FormBuilder) {
   }
 
   ngOnInit() {
+    this.hours = this.timeRangeService.hours();
+
     this.formData.title = this.data.timeRange.title;
 
     this.formData.start.hour = this.data.timeRange.hourStart;
@@ -61,6 +66,10 @@ export class DialogEditTimeRangeComponent implements OnInit {
 
   public onNoClick() {
     this.dialogRef.close();
+  }
+
+  public duration(): string {
+    return this.timeRangeService.duration(this.formData.start.hour, this.formData.start.minutes, this.formData.end.hour, this.formData.end.minutes);
   }
 
 }
