@@ -1,3 +1,6 @@
+/**
+ * Kinds for TimeRange
+ */
 export const TIME_RANGE_KIND = {
   red: 'red',
   yellow: 'yellow',
@@ -11,6 +14,9 @@ export const TIME_RANGE_KIND = {
   sleep: 'sleep'
 };
 
+/**
+ * Interface for TimeRange
+ */
 export interface ITimeRangeModel {
   start: string;
   end: string;
@@ -23,6 +29,9 @@ export interface ITimeRangeModel {
   background?: string;
 }
 
+/**
+ * Default value
+ */
 const DEFAULT_TIME_RANGE: ITimeRangeModel = {
   start: '00:00',
   end: '24:00',
@@ -31,6 +40,9 @@ const DEFAULT_TIME_RANGE: ITimeRangeModel = {
   height: 0
 };
 
+/**
+ * Main Model
+ */
 export class TimeRangeModel implements ITimeRangeModel {
 
   public start: string;

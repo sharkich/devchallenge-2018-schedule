@@ -4,6 +4,10 @@ import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 
 import {TimeRangeService} from '../time-range.service';
 
+/**
+ * Dialog from creating schedule
+ */
+
 @Component({
   selector: 'app-dialog-create-new-schedule',
   templateUrl: './dialog-create-new-schedule.component.html',

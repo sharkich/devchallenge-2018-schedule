@@ -11,8 +11,8 @@ import {TimeRangeService} from './time-range.service';
 import {DialogCreateNewScheduleComponent} from './dialog-create-new-schedule/dialog-create-new-schedule.component';
 import {DialogEditTimeRangeComponent} from './dialog-edit-time-range/dialog-edit-time-range.component';
 import {SvgService} from './svg.service';
-import { ServiceWorkerModule } from '@angular/service-worker';
-import { environment } from '../environments/environment';
+import {ServiceWorkerModule} from '@angular/service-worker';
+import {environment} from '../environments/environment';
 
 @NgModule({
   declarations: [

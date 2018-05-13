@@ -6,6 +6,10 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {TIME_RANGE_KIND} from '../time-range.model';
 import {TimeRangeService} from '../time-range.service';
 
+/**
+ * Dialog for edit/create custom range
+ */
+
 @Component({
   selector: 'app-dialog-edit-time-range',
   templateUrl: './dialog-edit-time-range.component.html',
@@ -64,12 +68,21 @@ export class DialogEditTimeRangeComponent implements OnInit {
     });
   }
 
+  /**
+   * Cnacel event
+   */
   public onNoClick() {
     this.dialogRef.close();
   }
 
+  /**
+   * Get duration string between times
+   * @return {string}
+   */
   public duration(): string {
-    return this.timeRangeService.duration(this.formData.start.hour, this.formData.start.minutes, this.formData.end.hour, this.formData.end.minutes);
+    return this.timeRangeService.duration(
+      this.formData.start.hour, this.formData.start.minutes,
+      this.formData.end.hour, this.formData.end.minutes);
   }
 
 }

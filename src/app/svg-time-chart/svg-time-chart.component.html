@@ -261,25 +261,9 @@
   Sorry, your browser does not support inline SVG.
 </svg>
 
-  <div [hidden]="!isDownload">
-    <h2><a [href]="downloadLink">Download</a></h2>
-
-    <canvas
-      [width]="svgWidthFull"
-      [height]="svgHeightFull"
-      #canvas>
-    </canvas>
-
-    <hr>
-
-    <img
-      [width]="svgWidthFull"
-      [height]="svgHeightFull"
-      alt=""
-      #png />
-
+  <div [hidden]="true">
+    <canvas [width]="svgWidthFull" [height]="svgHeightFull" #canvas></canvas>
+    <img [width]="svgWidthFull" [height]="svgHeightFull" alt="" #png/>
   </div>
-
-
 
 </div>

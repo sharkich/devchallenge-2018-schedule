@@ -8,6 +8,10 @@ import {SvgService} from '../svg.service';
 import {DialogCreateNewScheduleComponent} from '../dialog-create-new-schedule/dialog-create-new-schedule.component';
 import {DialogEditTimeRangeComponent} from '../dialog-edit-time-range/dialog-edit-time-range.component';
 
+/**
+ * Main SVG component for Schedule
+ */
+
 @Component({
   selector: 'app-svg-time-chart',
   templateUrl: './svg-time-chart.component.html',
@@ -21,11 +25,12 @@ export class SvgTimeChartComponent implements OnInit {
   @Input() copyFrom: TimeRangeModel[];
   @Input() copyFromTitle: string;
 
-  @ViewChild('svg') svg;
-  @ViewChild('canvas') canvas;
-  @ViewChild('png') png;
+  @ViewChild('svg') svg; // Main element
 
-  @ViewChild('uploadFile') uploadFile;
+  @ViewChild('canvas') canvas; // hidden. for download
+  @ViewChild('png') png; // hidden. for download
+
+  @ViewChild('uploadFile') uploadFile; // hidden. for upload
 
   public svgMargin: number;
 
@@ -38,16 +43,13 @@ export class SvgTimeChartComponent implements OnInit {
   public svgHeight: number;
   public svgHeightFull: number;
 
-  public hours: number[];
-
-  public isDownload = false;
-  public downloadLink: string;
+  public hours: number[]; // for axises
 
   public timeRangesColours: TimeRangeModel[];
   public timeRangesTitles: TimeRangeModel[];
   public timeRangesBackgrounds: TimeRangeModel[];
 
-  public id: string;
+  public id: string; // for unique id
 
   constructor(
     private timeRangeService: TimeRangeService,
@@ -75,18 +77,9 @@ export class SvgTimeChartComponent implements OnInit {
 
   }
 
-  private _initData() {
-    setTimeout(() => {
-      this.timeRangesColours = this.timeRangeService.generalRangesFiler(this.timeRanges);
-      this.timeRangesTitles = this.timeRangeService.titleRangesFiler(this.timeRanges);
-      this.timeRangesBackgrounds = this.timeRangeService.backgroundRangesFiler(this.timeRanges);
-    });
-  }
-
   /**
-   * Events handlers
+   * Dialog for create new Schedule
    */
-
   public onCreateNew() {
     const dialogRef = this.dialog.open(DialogCreateNewScheduleComponent, {
       width: '800px',
@@ -106,22 +99,43 @@ export class SvgTimeChartComponent implements OnInit {
       });
   }
 
+  /**
+   * Events handlers
+   */
+
+  /**
+   * Dialog new range
+   */
   public onAddRange() {
     this.onRangeSelect(new TimeRangeModel(), true);
   }
 
+  /**
+   * Download Image
+   */
   public onDownloadImage() {
     this.svgService.downloadImageStart(this.svg, this.png);
   }
 
+  /**
+   * Download Data
+   */
   public onDownloadData() {
     this.timeRangeService.downloadData(this.timeRanges, this.title);
   }
 
+  /**
+   * Upload Data
+   */
   public onUploadData() {
     this.uploadFile.nativeElement.click();
   }
 
+  /**
+   * Upload Data
+   * @param event
+   * @return {boolean}
+   */
   public onUploadFile(event) {
     const files = event.srcElement.files;
     if (files.length <= 0) {
@@ -136,11 +150,19 @@ export class SvgTimeChartComponent implements OnInit {
       });
   }
 
+  /**
+   * Clear schedule
+   */
   public onClear() {
     this.timeRanges.length = 0;
     this._initData();
   }
 
+  /**
+   * Dialog edit range
+   * @param {TimeRangeModel} timeRange
+   * @param {boolean} isNew
+   */
   public onRangeSelect(timeRange: TimeRangeModel, isNew = false) {
     const dialogRef = this.dialog.open(DialogEditTimeRangeComponent, {
       width: '600px',
@@ -171,9 +193,24 @@ export class SvgTimeChartComponent implements OnInit {
       });
   }
 
+  /**
+   * Get data from the copy
+   */
   public onCopyFrom() {
     this.timeRanges = this.timeRangeService.copyRange(this.copyFrom);
     this._initData();
+  }
+
+  /**
+   * Update lists from timeRanges
+   * @private
+   */
+  private _initData() {
+    setTimeout(() => {
+      this.timeRangesColours = this.timeRangeService.generalRangesFiler(this.timeRanges);
+      this.timeRangesTitles = this.timeRangeService.titleRangesFiler(this.timeRanges);
+      this.timeRangesBackgrounds = this.timeRangeService.backgroundRangesFiler(this.timeRanges);
+    });
   }
 
   /**

@@ -1,28 +1,36 @@
 import {ElementRef, Injectable} from '@angular/core';
 import {TIME_RANGE_KIND, TimeRangeModel} from './time-range.model';
 
+/**
+ * Service for SVG and UI of charts
+ */
+
 @Injectable()
 export class SvgService {
 
   public svgMargin = 40;
 
   public svgWidth = 1728;
-  public svgWidthFull: number;
+  public svgWidthFull: number; // size + margin
 
-  public svgHourWidth: number;
-  public svgHalfWidth: number;
-  public svgQuarterWidth: number;
+  public svgHourWidth: number; // 1
+  public svgHalfWidth: number; // 1/2
+  public svgQuarterWidth: number; // 1/4
 
   public svgHeight = 400;
-  public svgHeightFull: number;
+  public svgHeightFull: number; // size + margin
 
-  public rangeHeightNormal = 30;
-  public rangeHeightHigh = 40;
+  public rangeHeightNormal = 30; // height normal of range zone
+  public rangeHeightHigh = 40; // height high of range zone
 
   constructor() {
     this.initSizes();
   }
 
+  /**
+   * Generate sizes
+   * @param {number} svgWidth
+   */
   public initSizes(svgWidth?: number) {
     if (svgWidth) {
       this.svgWidth = svgWidth;
@@ -37,12 +45,23 @@ export class SvgService {
     this.svgHeightFull = this.svgHeight + this.svgMargin * 2;
   }
 
+  /**
+   * Handle click event
+   * @param {ElementRef} svg
+   * @param {ElementRef} png
+   */
   downloadImageStart(svg: ElementRef, png: ElementRef) {
     let data = new XMLSerializer().serializeToString(svg.nativeElement);
     data = encodeURIComponent(data);
     png.nativeElement.src = 'data:image/svg+xml,' + data;
   }
 
+  /**
+   * Handle callback from loading image
+   * @param {ElementRef} canvas
+   * @param {ElementRef} png
+   * @param {string} title
+   */
   downloadImageFinal(canvas: ElementRef, png: ElementRef, title: string) {
     // add img
     canvas.nativeElement
@@ -60,10 +79,20 @@ export class SvgService {
     document.body.removeChild(link);
   }
 
+  /**
+   * Get height of range
+   * @param {TimeRangeModel} timeRange
+   * @return {number}
+   */
   public rangeHeight(timeRange: TimeRangeModel): number {
     return timeRange.height ? this.rangeHeightHigh : this.rangeHeightNormal;
   }
 
+  /**
+   * Check range position
+   * @param {TimeRangeModel} timeRange
+   * @return {number}
+   */
   public rangeX(timeRange: TimeRangeModel): number {
     let x = this.svgMargin + timeRange.hourStart * this.svgHourWidth;
     switch (timeRange.minutesStart) {
@@ -80,6 +109,11 @@ export class SvgService {
     return x;
   }
 
+  /**
+   * Get range width
+   * @param {TimeRangeModel} timeRange
+   * @return {number}
+   */
   public rangeWidth(timeRange: TimeRangeModel): number {
     let hourStart = timeRange.hourStart;
     const hourEnd = timeRange.hourEnd;
@@ -90,6 +124,12 @@ export class SvgService {
     return Math.abs(quarters * this.svgQuarterWidth);
   }
 
+  /**
+   * Get color of range
+   * @param {TimeRangeModel} timeRange
+   * @param {number} opacity
+   * @return {string}
+   */
   public rangeColor(timeRange: TimeRangeModel, opacity: number = 0.8): string {
     switch (timeRange.kind) {
       case TIME_RANGE_KIND.blue:
@@ -126,10 +166,20 @@ export class SvgService {
     }
   }
 
+  /**
+   * Get Title position
+   * @param {TimeRangeModel} timeRange
+   * @return {number}
+   */
   public rangeTitleX(timeRange: TimeRangeModel): number {
     return this.rangeX(timeRange) + Math.round(this.rangeWidth(timeRange) / 2) + 4;
   }
 
+  /**
+   * Get title position
+   * @param {TimeRangeModel} timeRange
+   * @return {number}
+   */
   public rangeTitleY(timeRange: TimeRangeModel): number {
     return timeRange.height === 2 ? 75 : 290;
   }

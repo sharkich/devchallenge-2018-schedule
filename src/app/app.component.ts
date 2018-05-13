@@ -17,6 +17,10 @@ export class AppComponent implements OnInit {
   }
 
   public ngOnInit() {
+
+    /**
+     * Get Init general Data from JSON
+     */
     this.timeRangeService.getInitRegularSchedule()
       .then((timeRanges: TimeRangeModel[]) => {
         this.currentSchedule = timeRanges;
@@ -24,6 +28,10 @@ export class AppComponent implements OnInit {
       .catch(() => {
         this.currentSchedule = [];
       });
+
+    /**
+     * Get Init optimized Data from JSON
+     */
     this.timeRangeService.getInitOptimizedSchedule()
       .then((timeRanges: TimeRangeModel[]) => {
         this.optimizedSchedule = timeRanges;

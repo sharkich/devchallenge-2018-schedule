@@ -3,27 +3,46 @@ import {TIME_RANGE_KIND, TimeRangeModel} from './time-range.model';
 import {Http} from '@angular/http';
 import {FormGroup} from '@angular/forms';
 
+/**
+ * Service for TimeRanges
+ */
+
 @Injectable()
 export class TimeRangeService {
 
   constructor(private http: Http) { }
 
+  /**
+   * Get init data from JSON
+   * @return {Promise<TimeRangeModel[]>}
+   */
   public getInitRegularSchedule(): Promise<TimeRangeModel[]> {
     return this.http.get('/assets/regular-schedule.json')
       .toPromise()
       .then((res) => {
-        return res.json().map((obj) => new TimeRangeModel(obj));
+        const result: TimeRangeModel[] = res.json().map((obj) => new TimeRangeModel(obj));
+        return result;
       });
   }
 
+  /**
+   * Get init data from JSON (Optomization)
+   * @return {Promise<TimeRangeModel[]>}
+   */
   public getInitOptimizedSchedule(): Promise<TimeRangeModel[]> {
     return this.http.get('/assets/optimized-schedule.json')
       .toPromise()
       .then((res) => {
-        return res.json().map((obj) => new TimeRangeModel(obj));
+        const result: TimeRangeModel[] = res.json().map((obj) => new TimeRangeModel(obj));
+        return result;
       });
   }
 
+  /**
+   * Create New Schedule
+   * @param formData
+   * @return {TimeRangeModel[]}
+   */
   public createSchedule(formData: any): TimeRangeModel[] {
     const result: TimeRangeModel[] = [];
 
@@ -147,11 +166,21 @@ export class TimeRangeService {
     return result;
   }
 
+  /**
+   * Delete range from the list
+   * @param {TimeRangeModel[]} ranges
+   * @param {TimeRangeModel} timeRange
+   */
   public deleteRange(ranges: TimeRangeModel[], timeRange: TimeRangeModel) {
     const index = ranges.findIndex((range) => range === timeRange);
     ranges.splice(index, 1);
   }
 
+  /**
+   * Edit range properties
+   * @param {TimeRangeModel} timeRange
+   * @param {FormGroup} form
+   */
   public editTimeRange(timeRange: TimeRangeModel, form: FormGroup) {
     timeRange.title = form.controls['title'].value;
     timeRange.setStart(`${form.controls['startHour'].value}:${form.controls['startMinutes'].value}`);
@@ -160,29 +189,54 @@ export class TimeRangeService {
     timeRange.height = form.controls['height'].value;
   }
 
+  /**
+   * Add range to the list
+   * @param {TimeRangeModel[]} ranges
+   * @param {TimeRangeModel} timeRange
+   */
   public addRange(ranges: TimeRangeModel[], timeRange: TimeRangeModel) {
     ranges.push(timeRange);
   }
 
+  /**
+   * Get copy of the list
+   * @param {TimeRangeModel[]} ranges
+   * @return {TimeRangeModel[]}
+   */
   public copyRange(ranges: TimeRangeModel[]): TimeRangeModel[] {
     return [].concat(ranges);
   }
 
+  /**
+   * Filtering list by range kind
+   * @param {TimeRangeModel[]} ranges
+   * @return {TimeRangeModel[]}
+   */
   public generalRangesFiler(ranges: TimeRangeModel[]): TimeRangeModel[] {
     return ranges.filter((timeRange) => [
-        TIME_RANGE_KIND.work,
-        TIME_RANGE_KIND.sleep,
-        TIME_RANGE_KIND.red,
-        TIME_RANGE_KIND.green,
-        TIME_RANGE_KIND.yellow,
-        TIME_RANGE_KIND.blue,
-      ].indexOf(timeRange.kind) !== -1);
+      TIME_RANGE_KIND.work,
+      TIME_RANGE_KIND.sleep,
+      TIME_RANGE_KIND.red,
+      TIME_RANGE_KIND.green,
+      TIME_RANGE_KIND.yellow,
+      TIME_RANGE_KIND.blue,
+    ].indexOf(timeRange.kind) !== -1);
   }
 
+  /**
+   * Filtering list by title range kind
+   * @param {TimeRangeModel[]} ranges
+   * @return {TimeRangeModel[]}
+   */
   public titleRangesFiler(ranges: TimeRangeModel[]): TimeRangeModel[] {
     return ranges.filter((timeRange) => TIME_RANGE_KIND.title === timeRange.kind);
   }
 
+  /**
+   * Filtering list by background range kind
+   * @param {TimeRangeModel[]} ranges
+   * @return {TimeRangeModel[]}
+   */
   public backgroundRangesFiler(ranges: TimeRangeModel[]): TimeRangeModel[] {
     return ranges.filter((timeRange) => TIME_RANGE_KIND.background === timeRange.kind);
   }
@@ -191,6 +245,11 @@ export class TimeRangeService {
   Files
    */
 
+  /**
+   * Ganarate and download JSON from the list
+   * @param {TimeRangeModel[]} timeRanges
+   * @param {string} title
+   */
   downloadData(timeRanges: TimeRangeModel[], title: string) {
     const link = document.createElement('a');
     link.download = `${title}.json`;
@@ -200,6 +259,11 @@ export class TimeRangeService {
     document.body.removeChild(link);
   }
 
+  /**
+   * Uploading and parse JSON file
+   * @param {File} file
+   * @return {Promise<any>}
+   */
   uploadFile(file: File): Promise<any> {
     return new Promise((resolve, reject) => {
       const fr = new FileReader();
@@ -222,10 +286,23 @@ export class TimeRangeService {
     });
   }
 
+  /**
+   * Get duration of TimeRange
+   * @param {TimeRangeModel} range
+   * @return {string}
+   */
   public durationRange(range: TimeRangeModel): string {
     return this.duration(range.hourStart, range.minutesStart, range.hourEnd, range.minutesEnd);
   }
 
+  /**
+   * Get duration between times
+   * @param {number} startH
+   * @param {number} startM
+   * @param {number} endH
+   * @param {number} endM
+   * @return {string}
+   */
   public duration(startH: number, startM: number, endH: number, endM: number): string {
     const _startM = startH * 60 + startM;
     const _endM = endH * 60 + endM;
@@ -255,6 +332,12 @@ export class TimeRangeService {
   Private
    */
 
+  /**
+   * Add range to the list
+   * @param {TimeRangeModel[]} ranges
+   * @param {TimeRangeModel} timeRange
+   * @private
+   */
   private _addRange(ranges: TimeRangeModel[], timeRange: TimeRangeModel) {
     if (timeRange.hourEnd < timeRange.hourStart) {
       const timeRangeBefore24 = new TimeRangeModel(timeRange);
