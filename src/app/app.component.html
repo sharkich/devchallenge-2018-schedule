@@ -6,4 +6,12 @@
     [timeRanges]="currentSchedule"
   ></app-svg-time-chart>
 
+  <hr>
+
+  <app-svg-time-chart
+    *ngIf="optimizedSchedule"
+    [title]="'Optimized Schedule'"
+    [timeRanges]="optimizedSchedule"
+  ></app-svg-time-chart>
+
 </div>

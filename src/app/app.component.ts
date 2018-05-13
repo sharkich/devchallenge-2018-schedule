@@ -10,15 +10,20 @@ import {TimeRangeService} from './time-range.service';
 export class AppComponent implements OnInit {
 
   public currentSchedule: TimeRangeModel[];
+  public optimizedSchedule: TimeRangeModel[];
 
   constructor(
     private timeRangeService: TimeRangeService) {
   }
 
   public ngOnInit() {
-    this.timeRangeService.init()
+    this.timeRangeService.getInitRegularSchedule()
       .then((timeRanges: TimeRangeModel[]) => {
         this.currentSchedule = timeRanges;
+      });
+    this.timeRangeService.getInitOptimizedSchedule()
+      .then((timeRanges: TimeRangeModel[]) => {
+        this.optimizedSchedule = timeRanges;
       });
   }
 

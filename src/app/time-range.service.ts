@@ -7,7 +7,7 @@ export class TimeRangeService {
 
   constructor(private http: Http) { }
 
-  public init(): Promise<TimeRangeModel[]> {
+  public getInitRegularSchedule(): Promise<TimeRangeModel[]> {
     return this.http.get('/assets/schedule-original-fix.json')
       .toPromise()
       .then((res) => {
@@ -15,8 +15,15 @@ export class TimeRangeService {
       });
   }
 
+  public getInitOptimizedSchedule(): Promise<TimeRangeModel[]> {
+    return this.http.get('/assets/schedule-01.json')
+      .toPromise()
+      .then((res) => {
+        return res.json().map((obj) => new TimeRangeModel(obj));
+      });
+  }
+
   public createSchedule(formData: any): TimeRangeModel[] {
-    console.log('create from', formData);
     const result: TimeRangeModel[] = [];
 
     // Sleep
@@ -136,7 +143,6 @@ export class TimeRangeService {
     //   height: 0
     // }));
 
-    console.log('result', result);
     return result;
   }
 

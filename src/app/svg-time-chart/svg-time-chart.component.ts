@@ -195,7 +195,8 @@ export class SvgTimeChartComponent implements OnInit {
     const dialogRef = this.dialog.open(DialogEditTimeRangeComponent, {
       width: '600px',
       data: {
-        timeRange
+        timeRange,
+        isNew
       }
     });
 
@@ -204,6 +205,14 @@ export class SvgTimeChartComponent implements OnInit {
         if (!result || result.invalid) {
           return;
         }
+
+        if (result.delete) {
+          const index = this.timeRanges.findIndex((range) => range === timeRange);
+          this.timeRanges.splice(index, 1);
+          this._initData();
+          return;
+        }
+
         timeRange.title = result.controls['title'].value;
         timeRange.setStart(`${result.controls['startHour'].value}:${result.controls['startMinutes'].value}`);
         timeRange.setEnd(`${result.controls['endHour'].value}:${result.controls['endMinutes'].value}`);

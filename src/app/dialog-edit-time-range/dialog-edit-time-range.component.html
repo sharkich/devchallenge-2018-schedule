@@ -123,6 +123,17 @@
       cdkFocusInitial>
       OK
     </button>
+
+    <div style="flex-grow: 1;"></div>
+
+    <button
+      *ngIf="!data.isNew"
+      mat-raised-button
+      color="warn"
+      [mat-dialog-close]="{delete: true}"
+      cdkFocusInitial>
+      Delete
+    </button>
   </div>
 
 </div>
