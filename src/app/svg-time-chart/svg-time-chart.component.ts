@@ -1,31 +1,12 @@
 import {Component, Input, OnInit, ViewChild} from '@angular/core';
+import {FormGroup} from '@angular/forms';
 import {MatDialog} from '@angular/material';
 
-import {TIME_RANGE_KIND, TimeRangeModel} from '../time-range.model';
-import {DialogCreateNewScheduleComponent} from '../dialog-create-new-schedule/dialog-create-new-schedule.component';
+import {TimeRangeModel} from '../time-range.model';
 import {TimeRangeService} from '../time-range.service';
+import {SvgService} from '../svg.service';
+import {DialogCreateNewScheduleComponent} from '../dialog-create-new-schedule/dialog-create-new-schedule.component';
 import {DialogEditTimeRangeComponent} from '../dialog-edit-time-range/dialog-edit-time-range.component';
-import {FormGroup} from '@angular/forms';
-
-// Edge Blob polyfill https://developer.mozilla.org/en-US/docs/Web/API/HTMLCanvasElement/toBlob
-if (!HTMLCanvasElement.prototype.toBlob) {
-  Object.defineProperty(HTMLCanvasElement.prototype, 'toBlob', {
-    value: function (callback, type, quality) {
-      const canvas = this;
-      setTimeout(() => {
-        const binStr = atob(canvas.toDataURL(type, quality).split(',')[1]),
-          len = binStr.length,
-          arr = new Uint8Array(len);
-
-        for (let i = 0; i < len; i++) {
-          arr[i] = binStr.charCodeAt(i);
-        }
-
-        callback(new Blob([arr], {type: type || 'image/png'}));
-      });
-    }
-  });
-}
 
 @Component({
   selector: 'app-svg-time-chart',
@@ -46,22 +27,18 @@ export class SvgTimeChartComponent implements OnInit {
 
   @ViewChild('uploadFile') uploadFile;
 
-  public svgMargin = 40;
+  public svgMargin: number;
 
-  public svgWidth = 1728;
-  public svgWidthFull = this.svgWidth + this.svgMargin * 2;
+  public svgWidthFull: number;
 
-  public svgHourWidth = Math.round(this.svgWidth / 24);
-  public svgHalfWidth = Math.round(this.svgHourWidth / 2);
-  public svgQuarterWidth = Math.round(this.svgHourWidth / 4);
+  public svgHourWidth: number;
+  public svgHalfWidth: number;
+  public svgQuarterWidth: number;
 
-  public svgHeight = 400;
-  public svgHeightFull = this.svgHeight + this.svgMargin * 2;
+  public svgHeight: number;
+  public svgHeightFull: number;
 
-  public rangeHeightNormal = 30;
-  public rangeHeightHigh = 40;
-
-  public hours = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23];
+  public hours: number[];
 
   public isDownload = false;
   public downloadLink: string;
@@ -72,51 +49,33 @@ export class SvgTimeChartComponent implements OnInit {
 
   constructor(
     private timeRangeService: TimeRangeService,
+    private svgService: SvgService,
     private dialog: MatDialog) {
   }
 
   public ngOnInit() {
+    this.svgMargin = this.svgService.svgMargin;
+    this.svgWidthFull = this.svgService.svgWidthFull;
+    this.svgHourWidth = this.svgService.svgHourWidth;
+    this.svgHalfWidth = this.svgService.svgHalfWidth;
+    this.svgQuarterWidth = this.svgService.svgQuarterWidth;
+    this.svgHeight = this.svgService.svgHeight;
+    this.svgHeightFull = this.svgService.svgHeightFull;
+    this.hours = this.svgService.hours;
+
     this._initData();
 
     // For downloading
-    this.png.nativeElement.onload = () => {
-      // add img
-      this.canvas.nativeElement
-        .getContext('2d')
-        .drawImage(this.png.nativeElement,
-          0, 0, this.svgWidthFull, this.svgHeightFull,
-          0, 0, this.svgWidthFull, this.svgHeightFull);
-
-      // download
-      const link = document.createElement('a');
-      link.download = `${this.title}.png`;
-      link.href = this.canvas.nativeElement.toDataURL();
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-
-      // this.isDownload = true;
-    };
+    this.png.nativeElement.onload = () =>
+      this.svgService.downloadImageFinal(this.canvas, this.png, this.title);
 
   }
 
   private _initData() {
     setTimeout(() => {
-      this.timeRangesColours = this.timeRanges
-        .filter((timeRange) => [
-          TIME_RANGE_KIND.work,
-          TIME_RANGE_KIND.sleep,
-          TIME_RANGE_KIND.red,
-          TIME_RANGE_KIND.green,
-          TIME_RANGE_KIND.yellow,
-          TIME_RANGE_KIND.blue,
-        ].indexOf(timeRange.kind) !== -1);
-
-      this.timeRangesTitles = this.timeRanges
-        .filter((timeRange) => TIME_RANGE_KIND.title === timeRange.kind);
-
-      this.timeRangesBackgrounds = this.timeRanges
-        .filter((timeRange) => TIME_RANGE_KIND.background === timeRange.kind);
+      this.timeRangesColours = this.timeRangeService.generalRangesFiler(this.timeRanges);
+      this.timeRangesTitles = this.timeRangeService.titleRangesFiler(this.timeRanges);
+      this.timeRangesBackgrounds = this.timeRangeService.backgroundRangesFiler(this.timeRanges);
     });
   }
 
@@ -135,10 +94,11 @@ export class SvgTimeChartComponent implements OnInit {
     dialogRef.afterClosed()
       .subscribe((result) => {
         if (result) {
-          this.timeRanges.length = 0;
-          this.timeRanges = this.timeRangeService.createSchedule(result);
-          this._initData();
+          return;
         }
+        this.timeRanges.length = 0;
+        this.timeRanges = this.timeRangeService.createSchedule(result);
+        this._initData();
       });
   }
 
@@ -147,19 +107,11 @@ export class SvgTimeChartComponent implements OnInit {
   }
 
   public onDownloadImage() {
-    let data = new XMLSerializer().serializeToString(this.svg.nativeElement);
-    data = encodeURIComponent(data);
-    this.png.nativeElement.src = 'data:image/svg+xml,' + data;
+    this.svgService.downloadImageStart(this.svg, this.png);
   }
 
   public onDownloadData() {
-    // download
-    const link = document.createElement('a');
-    link.download = `${this.title} Data.json`;
-    link.href = 'data:text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(this.timeRanges));
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+    this.timeRangeService.downloadData(this.timeRanges, this.title);
   }
 
   public onUploadData() {
@@ -172,21 +124,12 @@ export class SvgTimeChartComponent implements OnInit {
       return false;
     }
 
-    const fr = new FileReader();
-    fr.onload = (e: any) => {
-      try {
-        const result = JSON.parse(e.target.result);
-        if (!result || !result.length) {
-          return;
-        }
-        this.timeRanges = result.map((obj) => new TimeRangeModel(obj));
+    this.timeRangeService.uploadFile(files.item(0))
+      .then((result: TimeRangeModel[]) => {
+        this.uploadFile.nativeElement.value = '';
+        this.timeRanges = result;
         this._initData();
-      } catch (e) {
-        console.log('error.parse.json', e);
-      }
-      this.uploadFile.nativeElement.value = '';
-    };
-    fr.readAsText(files.item(0));
+      });
   }
 
   public onClear() {
@@ -210,27 +153,22 @@ export class SvgTimeChartComponent implements OnInit {
         }
 
         if (result['delete']) {
-          const index = this.timeRanges.findIndex((range) => range === timeRange);
-          this.timeRanges.splice(index, 1);
+          this.timeRangeService.deleteRange(this.timeRanges, timeRange);
           this._initData();
           return;
         }
 
-        timeRange.title = result.controls['title'].value;
-        timeRange.setStart(`${result.controls['startHour'].value}:${result.controls['startMinutes'].value}`);
-        timeRange.setEnd(`${result.controls['endHour'].value}:${result.controls['endMinutes'].value}`);
-        timeRange.kind = result.controls['kind'].value;
-        timeRange.height = result.controls['height'].value;
+        this.timeRangeService.editTimeRange(timeRange, result);
 
         if (isNew) {
-          this.timeRanges.push(timeRange);
+          this.timeRangeService.addRange(this.timeRanges, timeRange);
           this._initData();
         }
       });
   }
 
   public onCopyFrom() {
-    this.timeRanges = [].concat(this.copyFrom);
+    this.timeRanges = this.timeRangeService.copyRange(this.copyFrom);
     this._initData();
   }
 
@@ -238,78 +176,28 @@ export class SvgTimeChartComponent implements OnInit {
    * Helpers for data in SVG (serializers)
    */
 
-  public rangeHeight(timeRanges: TimeRangeModel): number {
-    return timeRanges.height ? this.rangeHeightHigh : this.rangeHeightNormal;
+  public rangeHeight(timeRange: TimeRangeModel): number {
+    return this.svgService.rangeHeight(timeRange);
   }
 
   public rangeX(timeRange: TimeRangeModel): number {
-    let x = this.svgMargin + timeRange.hourStart * this.svgHourWidth;
-    switch (timeRange.minutesStart) {
-      case 45:
-        x += this.svgQuarterWidth * 3;
-        break;
-      case 30:
-        x += this.svgQuarterWidth * 2;
-        break;
-      case 15:
-        x += this.svgQuarterWidth;
-        break;
-    }
-    return x;
+    return this.svgService.rangeX(timeRange);
   }
 
   public rangeWidth(timeRange: TimeRangeModel): number {
-    let hourStart = timeRange.hourStart;
-    const hourEnd = timeRange.hourEnd;
-    if (hourStart > hourEnd) {
-      hourStart = 24 - hourStart;
-    }
-    const quarters = (hourEnd * 4 + timeRange.minutesEnd / 15) - (hourStart * 4 + timeRange.minutesStart / 15);
-    return Math.abs(quarters * this.svgQuarterWidth);
+    return this.svgService.rangeWidth(timeRange);
   }
 
   public rangeColor(timeRange: TimeRangeModel, opacity: number = 0.8): string {
-    switch (timeRange.kind) {
-      case TIME_RANGE_KIND.blue:
-      case TIME_RANGE_KIND.sleep:
-        return `rgba(60, 160, 200, ${opacity})`;
-      case TIME_RANGE_KIND.red:
-        return `rgba(255, 75, 140, ${opacity})`;
-      case TIME_RANGE_KIND.green:
-      case TIME_RANGE_KIND.work:
-        return `rgba(0, 200, 0, ${opacity})`;
-      case TIME_RANGE_KIND.yellow:
-        if (opacity === 1) {
-          return `rgba(240, 180, 30, 1)`;
-        }
-        return `rgba(255, 230, 50, ${opacity})`;
-      case TIME_RANGE_KIND.title:
-        if (opacity === 1) {
-          return `rgba(0, 0, 0, 1)`;
-        }
-        if (timeRange.background === 'green') {
-          return `rgba(230, 250, 230, ${opacity})`;
-        }
-        if (timeRange.background === 'transparent') {
-          return `rgba(255, 255, 255, ${opacity})`;
-        }
-        return `rgba(230, 230, 230, ${opacity})`;
-      case TIME_RANGE_KIND.background:
-        if (opacity === 1) {
-          return `rgba(0, 0, 0, 1)`;
-        }
-        return `rgba(230, 230, 230, ${opacity})`;
-      default:
-        return `rgba(230, 230, 230, ${opacity})`;
-    }
+    return this.svgService.rangeColor(timeRange, opacity);
   }
 
   public rangeTitleX(timeRange: TimeRangeModel): number {
-    return this.rangeX(timeRange) + Math.round(this.rangeWidth(timeRange) / 2) + 4;
+    return this.svgService.rangeTitleX(timeRange);
   }
 
   public rangeTitleY(timeRange: TimeRangeModel): number {
-    return timeRange.height === 2 ? 310 : 290;
+    return this.svgService.rangeTitleY(timeRange);
   }
 
 }

@@ -10,6 +10,7 @@ import {SvgTimeChartComponent} from './svg-time-chart/svg-time-chart.component';
 import {TimeRangeService} from './time-range.service';
 import {DialogCreateNewScheduleComponent} from './dialog-create-new-schedule/dialog-create-new-schedule.component';
 import {DialogEditTimeRangeComponent} from './dialog-edit-time-range/dialog-edit-time-range.component';
+import {SvgService} from './svg.service';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import {DialogEditTimeRangeComponent} from './dialog-edit-time-range/dialog-edit
     MatStepperModule
   ],
   providers: [
-    TimeRangeService
+    TimeRangeService,
+    SvgService
   ],
   entryComponents: [
     DialogCreateNewScheduleComponent,

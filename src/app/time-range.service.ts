@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 import {TIME_RANGE_KIND, TimeRangeModel} from './time-range.model';
 import {Http} from '@angular/http';
+import {FormGroup} from '@angular/forms';
 
 @Injectable()
 export class TimeRangeService {
@@ -145,6 +146,85 @@ export class TimeRangeService {
 
     return result;
   }
+
+  public deleteRange(ranges: TimeRangeModel[], timeRange: TimeRangeModel) {
+    const index = ranges.findIndex((range) => range === timeRange);
+    ranges.splice(index, 1);
+  }
+
+  public editTimeRange(timeRange: TimeRangeModel, form: FormGroup) {
+    timeRange.title = form.controls['title'].value;
+    timeRange.setStart(`${form.controls['startHour'].value}:${form.controls['startMinutes'].value}`);
+    timeRange.setEnd(`${form.controls['endHour'].value}:${form.controls['endMinutes'].value}`);
+    timeRange.kind = form.controls['kind'].value;
+    timeRange.height = form.controls['height'].value;
+  }
+
+  public addRange(ranges: TimeRangeModel[], timeRange: TimeRangeModel) {
+    ranges.push(timeRange);
+  }
+
+  public copyRange(ranges: TimeRangeModel[]): TimeRangeModel[] {
+    return [].concat(ranges);
+  }
+
+  public generalRangesFiler(ranges: TimeRangeModel[]): TimeRangeModel[] {
+    return ranges.filter((timeRange) => [
+        TIME_RANGE_KIND.work,
+        TIME_RANGE_KIND.sleep,
+        TIME_RANGE_KIND.red,
+        TIME_RANGE_KIND.green,
+        TIME_RANGE_KIND.yellow,
+        TIME_RANGE_KIND.blue,
+      ].indexOf(timeRange.kind) !== -1);
+  }
+
+  public titleRangesFiler(ranges: TimeRangeModel[]): TimeRangeModel[] {
+    return ranges.filter((timeRange) => TIME_RANGE_KIND.title === timeRange.kind);
+  }
+
+  public backgroundRangesFiler(ranges: TimeRangeModel[]): TimeRangeModel[] {
+    return ranges.filter((timeRange) => TIME_RANGE_KIND.background === timeRange.kind);
+  }
+
+  /*
+  Files
+   */
+
+  downloadData(timeRanges: TimeRangeModel[], title: string) {
+    const link = document.createElement('a');
+    link.download = `${title}.json`;
+    link.href = 'data:text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(timeRanges));
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  }
+
+  uploadFile(file: File): Promise<any> {
+    return new Promise((resolve, reject) => {
+      const fr = new FileReader();
+      fr.onload = (e: any) => {
+        try {
+          const result = JSON.parse(e.target.result);
+          if (!result || !result.length) {
+            return [];
+          }
+
+          resolve(result.map((obj) => new TimeRangeModel(obj)));
+
+        } catch (e) {
+          console.log('Error: Parsing JSON');
+          reject(e);
+        }
+
+      };
+      fr.readAsText(file);
+    });
+  }
+
+  /*
+  Private
+   */
 
   private _addRange(ranges: TimeRangeModel[], timeRange: TimeRangeModel) {
     if (timeRange.hourEnd < timeRange.hourStart) {
