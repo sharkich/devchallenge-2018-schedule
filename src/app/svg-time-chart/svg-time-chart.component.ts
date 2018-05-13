@@ -37,6 +37,9 @@ export class SvgTimeChartComponent implements OnInit {
   @Input() title: string;
   @Input() timeRanges: TimeRangeModel[];
 
+  @Input() copyFrom: TimeRangeModel[];
+  @Input() copyFromTitle: string;
+
   @ViewChild('svg') svg;
   @ViewChild('canvas') canvas;
   @ViewChild('png') png;
@@ -206,7 +209,7 @@ export class SvgTimeChartComponent implements OnInit {
           return;
         }
 
-        if (result.delete) {
+        if (result['delete']) {
           const index = this.timeRanges.findIndex((range) => range === timeRange);
           this.timeRanges.splice(index, 1);
           this._initData();
@@ -224,6 +227,11 @@ export class SvgTimeChartComponent implements OnInit {
           this._initData();
         }
       });
+  }
+
+  public onCopyFrom() {
+    this.timeRanges = [].concat(this.copyFrom);
+    this._initData();
   }
 
   /**

@@ -4,6 +4,8 @@
     *ngIf="currentSchedule"
     [title]="'Regular Schedule'"
     [timeRanges]="currentSchedule"
+    [copyFrom]="optimizedSchedule"
+    [copyFromTitle]="'Optimized'"
   ></app-svg-time-chart>
 
   <hr>
@@ -12,6 +14,8 @@
     *ngIf="optimizedSchedule"
     [title]="'Optimized Schedule'"
     [timeRanges]="optimizedSchedule"
+    [copyFrom]="currentSchedule"
+    [copyFromTitle]="'Regular'"
   ></app-svg-time-chart>
 
 </div>
