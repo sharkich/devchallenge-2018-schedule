@@ -13,6 +13,22 @@
     "kind": "sleep",
     "height": 0
   },
+
+  {
+    "start": "6:00",
+    "end": "6:00",
+    "title": "Wake up",
+    "kind": "blue",
+    "height": 2
+  },
+  {
+    "start": "22:30",
+    "end": "22:30",
+    "title": "Fall asleep",
+    "kind": "blue",
+    "height": 2
+  },
+
   {
     "start": "6:00",
     "end": "6:45",
