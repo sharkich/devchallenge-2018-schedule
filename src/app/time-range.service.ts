@@ -17,7 +17,7 @@ export class TimeRangeService {
    * @return {Promise<TimeRangeModel[]>}
    */
   public getInitRegularSchedule(): Promise<TimeRangeModel[]> {
-    return this.http.get('/assets/regular-schedule.json')
+    return this.http.get('./assets/regular-schedule.json')
       .toPromise()
       .then((res) => {
         const result: TimeRangeModel[] = res.json().map((obj) => new TimeRangeModel(obj));
@@ -30,7 +30,7 @@ export class TimeRangeService {
    * @return {Promise<TimeRangeModel[]>}
    */
   public getInitOptimizedSchedule(): Promise<TimeRangeModel[]> {
-    return this.http.get('/assets/optimized-schedule.json')
+    return this.http.get('./assets/optimized-schedule.json')
       .toPromise()
       .then((res) => {
         const result: TimeRangeModel[] = res.json().map((obj) => new TimeRangeModel(obj));
